@@ -14,4 +14,17 @@
     <string name="content">Nội dung</string>
     <string name="lbl_content">Nội dung:</string>
     <string name="amount_money">Số tiền</string>
+    <string name="icon">breakfast</string>
+    <string name="breakfast">breakfast</string>
+    <string name="total_expense">Tổng Chi:</string>
+    <string name="_100_000">100.000</string>
+    <string name="balance">số dư hiện tại:</string>
+    <string name="_1_000_000">100.000.000</string>
+    <string name="find_expenses_by_date">Tìm kiếm chi tiêu theo ngày</string>
+    <string name="_28">28</string>
+    <string name="today">Today</string>
+    <string name="_11_2023">11/2023</string>
+    <string name="_50_000">-50.000</string>
+    <string name="_50_000_">-50.000</string>
+    <string name="mama_send">Tiền má gửi</string>
 </resources>
