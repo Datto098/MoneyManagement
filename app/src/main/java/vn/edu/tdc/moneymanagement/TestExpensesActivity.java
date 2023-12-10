@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import vn.edu.tdc.moneymanagement.fragment.ExpensesFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class TestExpensesActivity extends AppCompatActivity {
     private ExpensesFragment fragment;
 
     @Override
