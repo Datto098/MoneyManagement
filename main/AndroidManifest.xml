@@ -13,11 +13,6 @@
         android:theme="@style/Theme.MoneyManagement"
         tools:targetApi="31">
         <activity
-            android:name=".TestExpensesActivity"
-            android:exported="false"
-            android:label="@string/title_activity_test_expenses"
-            android:theme="@style/Theme.MoneyManagement" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MoneyManagement</string>
+    <string name="cac_khoan_chi">Cac khoan chi:</string>
+    <string name="total_fixes">1.500.500</string>
+    <string name="unit_money">đ</string>
+    <string name="start_day">Start day</string>
+    <string name="end_day">End day</string>
+    <string name="btn_find">Tim Kiem</string>
+    <string name="btn_add">Them</string>
+    <string name="btn_update">Sua</string>
+    <string name="btn_delete">Xoa</string>
+    <string name="choose_day">Chọn ngày</string>
+    <string name="datetime">Ngày:</string>
+    <string name="content">Nội dung</string>
+    <string name="lbl_content">Nội dung:</string>
+    <string name="amount_money">Số tiền</string>
+</resources>
