@@ -6,6 +6,14 @@
     android:orientation="vertical"
     android:background="#E9E9E9">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:title="Title"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +26,8 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:orientation="vertical"
-            android:padding="25dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="25dp"
             android:background="#fff"
             >
             <LinearLayout
@@ -46,6 +55,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
@@ -66,17 +76,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:textStyle="bold"
-                    android:text="@string/datetime"/>
-                <EditText
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/lblDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_outline"
                     android:hint="@string/choose_day"/>
             </LinearLayout>
 
@@ -89,7 +96,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewParent"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
