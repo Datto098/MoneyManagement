@@ -1,71 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9E9E9"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#E9E9E9">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        app:title="Title"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="8">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:background="#fff"
             android:orientation="vertical"
-            android:padding="25dp"
-            tools:ignore="NestedWeights">
-
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="25dp"
+            android:background="#fff"
+            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <EditText
                     android:id="@+id/lblAmountMoney"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:hint="@string/amount_money"
+                    android:textSize="22sp"
                     android:textColor="#F50D0D"
-                    android:textSize="22sp" />
+                    android:hint="@string/amount_money"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="đ"
-                    android:textSize="@dimen/text_size_big" />
+                    android:textSize="@dimen/text_size_big"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginVertical="15dp"
                 android:orientation="horizontal">
-
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="@string/lbl_content"
-                    android:textStyle="bold" />
-
+                    android:textStyle="bold"
+                    android:text="@string/lbl_content"/>
                 <EditText
                     android:id="@+id/lblContent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:hint="@string/content" />
+                    android:hint="@string/content"/>
             </LinearLayout>
 
 
@@ -74,15 +77,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/lblDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_weight="8"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/button_outline"
-                    android:hint="@string/choose_day" />
+                    android:hint="@string/choose_day"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -90,13 +92,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
-            android:padding="22dp">
+            android:layout_weight="3">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewParent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </LinearLayout>
 
@@ -106,38 +108,39 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
-        android:gravity="center"
         android:orientation="horizontal"
+        android:gravity="center"
         android:padding="@dimen/padding">
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
             android:layout_weight="1"
+            android:layout_height="@dimen/btn_height"
             android:background="@drawable/button_border"
-            android:text="@string/btn_add"
             android:textColor="@color/white"
-            tools:ignore="NestedWeights" />
+            android:text="@string/btn_add"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpdate"
             android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/button_border"
-            android:text="@string/btn_update"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:text="@string/btn_update"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDelete"
             android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
             android:layout_weight="1"
+            android:layout_height="@dimen/btn_height"
             android:background="@drawable/button_border"
-            android:text="@string/btn_delete"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:text="@string/btn_delete"/>
+
+
 
 
     </LinearLayout>
