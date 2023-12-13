@@ -1,211 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_screem"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/tvHoTen"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ho_va_ten"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toTopOf="@+id/tvBangCap"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51" />
+        android:background="#00AFF0"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Title" />
 
-    .
+    <LinearLayout
+        android:id="@+id/fragment_container_view_tag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        
+    </LinearLayout>
 
-
-    <EditText
-        android:id="@+id/edtHoTen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/tvHoTen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/tvHoTen"
-        app:layout_constraintVertical_bias="0.571" />
-
-    <TextView
-        android:id="@+id/tvBangCap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bang_cap"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toTopOf="@+id/tvSoThich"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHoTen"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/tvBangCap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/tvBangCap">
-
-        <RadioButton
-            android:id="@+id/radioTrungCap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/trung_cap"
-            android:textSize="@dimen/radioTextSize"
-            app:layout_constraintBottom_toBottomOf="@+id/tvBangCap"
-            app:layout_constraintEnd_toStartOf="@+id/radioCaoDang"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/tvBangCap" />
-
-        <RadioButton
-            android:id="@+id/radioCaoDang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cao_dang"
-            android:textSize="@dimen/radioTextSize"
-            app:layout_constraintBottom_toBottomOf="@+id/tvBangCap"
-            app:layout_constraintEnd_toStartOf="@+id/radioDaiHoc"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/radioTrungCap"
-            app:layout_constraintTop_toTopOf="@+id/tvBangCap" />
-
-        <RadioButton
-            android:id="@+id/radioDaiHoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dai_hoc"
-            android:textSize="@dimen/radioTextSize"
-            app:layout_constraintBottom_toBottomOf="@+id/tvBangCap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/radioCaoDang"
-            app:layout_constraintTop_toTopOf="@+id/tvBangCap" />
-    </RadioGroup>
-
-
-
-    <TextView
-        android:id="@+id/tvSoThich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/so_thich"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.585"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBangCap"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <CheckBox
-        android:id="@+id/chkDocSach"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/doc_sach"
-        android:textSize="@dimen/radioTextSize"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSoThich"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/tvSoThich"
-        app:layout_constraintVertical_bias="0.464" />
-
-    <CheckBox
-        android:id="@+id/chkDuLich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="0dp"
-        android:text="@string/du_lich"
-        android:textSize="@dimen/radioTextSize"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSoThich"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/tvSoThich"
-        app:layout_constraintVertical_bias="0.464" />
-
-    <EditText
-        android:id="@+id/edtSoThich"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/so_thich_khac"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.989" />
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="370dp"
-        android:layout_height="286dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-
-    <Button
-        android:id="@+id/btnThem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FF9900"
-        android:text="@string/them"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnThoat"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <Button
-        android:id="@+id/btnThoat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FF9900"
-        android:text="@string/thoat"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnThem"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.20" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.43" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8998483" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
