@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding">25dp</dimen>
-    <dimen name="text_size_big">22sp</dimen>
-    <dimen name="btn_height">37dp</dimen>
-    <dimen name="margin_top">20dp</dimen>
+    <dimen name="text_size">15sp</dimen>
+    <dimen name="padding_screem">20dp</dimen>
+    <dimen name="radioTextSize">13sp</dimen>
 </resources>
