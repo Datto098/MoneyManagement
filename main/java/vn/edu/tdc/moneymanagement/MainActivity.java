@@ -12,8 +12,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<>();
         list.add("Hello");
         list.add("Test");
-
         listAdapter = new ListAdapter(this, list);
         recyclerView.setAdapter(listAdapter);
 
