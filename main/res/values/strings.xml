@@ -28,7 +28,4 @@
     <string name="_50_000_">-50.000</string>
     <string name="mama_send">Tiền má gửi</string>
     <string name="DD">đ</string>
-    <string name="total_momney">Tổng tiền</string>
-    <string name="fixed_amount">Khoan co dinh</string>
-    <string name="sending_amount">Khoan chi tieu</string>
 </resources>
