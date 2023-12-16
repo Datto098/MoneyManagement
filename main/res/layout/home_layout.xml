@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="35dp"
-            android:text="Welcome,"
+            android:text="Welcome"
             android:textColor="@color/white"
             android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -78,7 +78,6 @@
         android:layout_height="0dp"
         android:layout_weight = "5"
         android:background="@color/white"
-
         >
 
         <TextView
@@ -98,15 +97,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="12dp"
-            android:drawableLeft="@drawable/ic_money"
             android:drawablePadding="5dp"
-            android:text="70.000d"
+            android:text="70.000"
             android:textColor="@color/primary"
             android:textSize="22dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_money"
+            app:layout_constraintBottom_toBottomOf="@+id/textPriceBl"
+            app:layout_constraintStart_toEndOf="@+id/textPriceBl"
+            app:layout_constraintTop_toTopOf="@+id/textPriceBl" />
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -125,13 +131,21 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="12dp"
             android:drawablePadding="5dp"
-            android:text="150.000d"
+            android:text="150.000"
             android:textColor="@color/red"
             android:textSize="22dp"
             android:textStyle="bold"
-            app:drawableLeftCompat="@drawable/ic_money"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_money"
+            android:layout_marginLeft="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textPriceUsed"
+            app:layout_constraintStart_toEndOf="@+id/textPriceUsed"
+            app:layout_constraintTop_toTopOf="@+id/textPriceUsed" />
 
         <TextView
             android:id="@+id/textDanger"
@@ -152,7 +166,7 @@
             android:layout_marginTop="16dp"
             android:text="Với số tiền này bạn có thể thể sử dụng thêm ... ngày "
             android:textColor="@color/gray"
-            android:textSize="22dp"
+            android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textDanger" />
 

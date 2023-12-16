@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
-import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.model.ExpenseAdapter;
+import vn.tdc.edu.moneymanagement.R;
 
 public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

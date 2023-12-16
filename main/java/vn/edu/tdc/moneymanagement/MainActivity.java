@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import vn.tdc.edu.moneymanagement.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import vn.edu.tdc.moneymanagement.fragment.HistoryFragment;
+import vn.tdc.edu.moneymanagement.R;
 
 public class TestHistoryActivity extends AppCompatActivity {
 

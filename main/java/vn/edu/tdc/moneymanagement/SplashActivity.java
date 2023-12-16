@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import vn.tdc.edu.moneymanagement.R;
+
 public class SplashActivity extends AppCompatActivity {
 
     Handler handler = new Handler();

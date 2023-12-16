@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 import vn.edu.tdc.moneymanagement.model.CustomAdapter;
+import vn.tdc.edu.moneymanagement.R;
 
 public class AddCategoryActivity extends AppCompatActivity {
 

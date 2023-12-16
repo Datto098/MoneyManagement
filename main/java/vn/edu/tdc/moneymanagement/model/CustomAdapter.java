@@ -12,8 +12,7 @@ import androidx.viewbinding.ViewBinding;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.moneymanagement.R;
-import vn.edu.tdc.moneymanagement.databinding.CustomGridViewBinding;
+import vn.tdc.edu.moneymanagement.databinding.CustomGridViewBinding;
 
 public class CustomAdapter extends ArrayAdapter<Integer> {
     ArrayList<Integer> icons;

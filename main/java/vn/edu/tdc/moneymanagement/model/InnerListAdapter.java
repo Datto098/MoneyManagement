@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import vn.edu.tdc.moneymanagement.R;
+import vn.tdc.edu.moneymanagement.R;
 
 public class InnerListAdapter extends ArrayAdapter<String> {
 

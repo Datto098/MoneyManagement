@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import vn.tdc.edu.moneymanagement.R;
+
 public class ListItemAdapter extends RecyclerView.Adapter {
     private ArrayList<String> colors;
     private LayoutInflater inflater;
