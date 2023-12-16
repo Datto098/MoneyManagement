@@ -14,9 +14,9 @@ public class TestExpensesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ExpensesFragment fragment = new ExpensesFragment();
-        @SuppressLint("CommitTransaction") FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment);
-        fragmentTransaction.commit();
+//        ExpensesFragment fragment = new ExpensesFragment();
+//        @SuppressLint("CommitTransaction") FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment);
+//        fragmentTransaction.commit();
     }
 }

@@ -1,14 +1,19 @@
 package vn.edu.tdc.moneymanagement;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         categories.add("Ăn uống");
         categories.add("Cafe");
         categories.add("Đi lại");
-        categories.add("Di lịch");
+        categories.add("Du lịch");
 
         icons.add(R.drawable.healthy_eating);
         icons.add(R.drawable.coffee_cup);
@@ -44,6 +49,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         SpinnerItemAdapter spinnerItemAdapter = new SpinnerItemAdapter(this, categories, icons);
         spinner.setAdapter(spinnerItemAdapter);
 
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavi);
+//        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                int itemID  = item.getItemId();
+//                if(itemID == R.id.home){
+//                    Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+//                }
+//                else  if(itemID == R.id.add){
+//                    Toast.makeText(MainActivity.this, "Add", Toast.LENGTH_SHORT).show();
+//                }
+//                else  if(itemID == R.id.history){
+//                    Toast.makeText(MainActivity.this, "History", Toast.LENGTH_SHORT).show();
+//                }
+//                return true;
+//            }
+//        });
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);

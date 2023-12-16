@@ -14,9 +14,9 @@ public class TestEnterMoneyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EnterMoneyFragment fragment = new EnterMoneyFragment();
-        @SuppressLint("CommitTransaction") FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment);
-        fragmentTransaction.commit();
+//        EnterMoneyFragment fragment = new EnterMoneyFragment();
+//        @SuppressLint("CommitTransaction") FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment);
+//        fragmentTransaction.commit();
     }
 }
