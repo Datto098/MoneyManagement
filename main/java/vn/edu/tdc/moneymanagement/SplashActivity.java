@@ -1,12 +1,11 @@
 package vn.edu.tdc.moneymanagement;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import vn.tdc.edu.moneymanagement.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,6 +23,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },3000);
+        }, 3000);
     }
 }

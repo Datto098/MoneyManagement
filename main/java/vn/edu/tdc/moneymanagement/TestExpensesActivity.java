@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import vn.edu.tdc.moneymanagement.fragment.ExpensesFragment;
-import vn.tdc.edu.moneymanagement.R;
+
 
 public class TestExpensesActivity extends AppCompatActivity {
 

@@ -1,7 +1,6 @@
 package vn.edu.tdc.moneymanagement.model;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -12,11 +11,13 @@ import androidx.viewbinding.ViewBinding;
 
 import java.util.ArrayList;
 
-import vn.tdc.edu.moneymanagement.databinding.CustomGridViewBinding;
+import vn.edu.tdc.moneymanagement.databinding.CustomGridViewBinding;
+
 
 public class CustomAdapter extends ArrayAdapter<Integer> {
+    private final Activity context;
     ArrayList<Integer> icons;
-    private Activity context;
+
     public CustomAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<Integer> objects) {
         super(context, resource, objects);
         icons = objects;
@@ -29,17 +30,16 @@ public class CustomAdapter extends ArrayAdapter<Integer> {
         ViewBinding binding;
 
         //khai bao
-        if (convertView == null){
+        if (convertView == null) {
             binding = CustomGridViewBinding.inflate(context.getLayoutInflater(), parent, false);
             convertView = binding.getRoot();
             //gan ket doi tuong bidding voi tung listview item
             convertView.setTag(binding);
-        }
-        else{
+        } else {
             binding = (CustomGridViewBinding) convertView.getTag();
         }
         //
-        ((CustomGridViewBinding)binding).viewImage.setImageResource(icons.get(position));
+        ((CustomGridViewBinding) binding).viewImage.setImageResource(icons.get(position));
         //output
         return convertView;
     }

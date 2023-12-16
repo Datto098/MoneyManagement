@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
+import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.model.ExpenseAdapter;
-import vn.tdc.edu.moneymanagement.R;
 
 public class ExpensesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         List<String> fakedata = Arrays.asList("1000", "2000", "3000");
 
-        View fragment = inflater.inflate(R.layout.expense_fragment, container, false);
+        View fragment = inflater.inflate(vn.edu.tdc.moneymanagement.R.layout.expense_fragment, container, false);
         RecyclerView expenseRecyclerView = (RecyclerView) fragment.findViewById(R.id.recyclerViewExpense);
 
         // Create and set up your custom adapter

@@ -3,6 +3,7 @@ package vn.edu.tdc.moneymanagement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -11,9 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
-import vn.tdc.edu.moneymanagement.R;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
@@ -43,8 +45,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_home);
         navigationView.setNavigationItemSelectedListener(this);
 
-    }
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavi);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemID = item.getItemId();
+                if (itemID == R.id.home) {
+                    Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
 
+                } else if (itemID == R.id.add) {
+                    Toast.makeText(HomeActivity.this, "Add", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                } else if (itemID == R.id.history) {
+                    Toast.makeText(HomeActivity.this, "History", Toast.LENGTH_SHORT).show();
+                } else if (itemID == R.id.account) {
+                    Toast.makeText(HomeActivity.this, "Account", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            }
+        });
+
+    }
 
 
     //Xu ly nut drawerToggle
@@ -53,32 +77,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
-            return  true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.nav_home){
+        if (menuItem.getItemId() == R.id.nav_home) {
 
-        }
-        else if (menuItem.getItemId() == R.id.nav_account)
-        {
+        } else if (menuItem.getItemId() == R.id.nav_account) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
         } else if (menuItem.getItemId() == R.id.nav_totalPrice) {
             Intent intent = new Intent(this, TestEnterMoneyActivity.class);
             startActivity(intent);
-        }
-        else{
+        } else {
             Intent intent = new Intent(this, TestEnterMoneyActivity.class);
             startActivity(intent);
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 }

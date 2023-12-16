@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import vn.tdc.edu.moneymanagement.R;
 
 public class ListAdapter extends RecyclerView.Adapter {
-    private ArrayList<String> colors;
-    private LayoutInflater inflater;
+    private final ArrayList<String> colors;
+    private final LayoutInflater inflater;
 
-    public ListAdapter (Context context, ArrayList<String> colors){
+    public ListAdapter(Context context, ArrayList<String> colors) {
         this.inflater = LayoutInflater.from(context);
         this.colors = colors;
     }
@@ -24,7 +23,7 @@ public class ListAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view  = inflater.inflate(R.layout.recyclerview_item, parent, false);
+        View view = inflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,10 +44,11 @@ public class ListAdapter extends RecyclerView.Adapter {
         return colors.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
         RecyclerView recyclerViewChild;
-        public ViewHolder(View itemView){
+
+        public ViewHolder(View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.recyclerviewParent);
             recyclerViewChild = itemView.findViewById(R.id.recyclerviewChild);

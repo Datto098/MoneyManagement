@@ -1,31 +1,26 @@
 package vn.edu.tdc.moneymanagement;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 import vn.edu.tdc.moneymanagement.model.CustomAdapter;
-import vn.tdc.edu.moneymanagement.R;
 
 public class AddCategoryActivity extends AppCompatActivity {
 
     private GridView gridIcons;
     private View viewPre = null;
-    private int selectedRow = -1;
-    private ArrayList<Integer> icons = new ArrayList<Integer>();
+    private final int selectedRow = -1;
+    private final ArrayList<Integer> icons = new ArrayList<Integer>();
     private CustomAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +71,11 @@ public class AddCategoryActivity extends AppCompatActivity {
 
                 //set icon to iconMain
                 iconMain.setImageDrawable(icon.getDrawable());
-                if (viewPre == view){
+                if (viewPre == view) {
                     icon.setBackground(getResources().getDrawable(R.drawable.radio_bg));
                     iconMain.setImageDrawable(getResources().getDrawable(R.drawable.home));
                     viewPre = null;
-                }else{
+                } else {
                     if (viewPre != null) {
                         iconPre = viewPre.findViewById(R.id.viewImage);
                         iconPre.setBackground(getResources().getDrawable(R.drawable.radio_bg));

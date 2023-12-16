@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import vn.tdc.edu.moneymanagement.R;
+import vn.edu.tdc.moneymanagement.R;
+
 
 public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> {
 
@@ -44,7 +45,7 @@ public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            expenseListView = itemView.findViewById(R.id.listViewExpense);
+            expenseListView = itemView.findViewById(vn.edu.tdc.moneymanagement.R.id.listViewExpense);
         }
     }
 }
