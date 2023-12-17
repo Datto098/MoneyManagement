@@ -30,11 +30,11 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String item = data.get(position);
-
-        // Use the custom adapter for the ListView
-        InnerListAdapter innerListAdapter = new InnerListAdapter(holder.itemView.getContext(), data);
-        holder.expenseListView.setAdapter(innerListAdapter);
+//        String item = data.get(position);
+//
+//        // Use the custom adapter for the ListView
+//        InnerListAdapter innerListAdapter = new InnerListAdapter(holder.itemView.getContext(), data);
+//        holder.expenseListView.setAdapter(innerListAdapter);
     }
 
     @Override

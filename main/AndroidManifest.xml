@@ -5,46 +5,50 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyManagement"
-        tools:targetApi="31">
+        tools:targetApi="tiramisu">
         <activity
-            android:name="vn.edu.tdc.moneymanagement.HomeActivity"
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="vn.edu.tdc.moneymanagement.AddCategoryActivity"
+            android:name=".AddCategoryActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="vn.edu.tdc.moneymanagement.MainActivity"
+            android:name=".MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="vn.edu.tdc.moneymanagement.TestEnterMoneyActivity"
+            android:name=".TestEnterMoneyActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor" />
         <activity
-            android:name="vn.edu.tdc.moneymanagement.TestExpensesActivity"
+            android:name=".TestExpensesActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="fullSensor" />
         <activity
-            android:name="vn.edu.tdc.moneymanagement.TestHistoryActivity"
+            android:name=".TestHistoryActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
-        <!--        -->
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

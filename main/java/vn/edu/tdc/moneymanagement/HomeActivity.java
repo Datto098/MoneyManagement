@@ -1,5 +1,6 @@
 package vn.edu.tdc.moneymanagement;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,10 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+
+import vn.edu.tdc.moneymanagement.fragment.HistoryFragment;
 
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,7 +62,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
                     startActivity(intent);
                 } else if (itemID == R.id.history) {
-                    Toast.makeText(HomeActivity.this, "History", Toast.LENGTH_SHORT).show();
+                    HistoryFragment fragment = new HistoryFragment();
+                    @SuppressLint("CommitTransaction") FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment);
+                    fragmentTransaction.commit();
                 } else if (itemID == R.id.account) {
                     Toast.makeText(HomeActivity.this, "Account", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(HomeActivity.this, MainActivity.class);
