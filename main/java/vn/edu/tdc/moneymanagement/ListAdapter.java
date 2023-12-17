@@ -10,14 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import vn.edu.tdc.moneymanagement.model.ExpenseItem;
+
 
 public class ListAdapter extends RecyclerView.Adapter {
-    private final ArrayList<String> colors;
-    private final LayoutInflater inflater;
+    private ArrayList<ExpenseItem> items;
+    private  LayoutInflater inflater;
 
-    public ListAdapter(Context context, ArrayList<String> colors) {
+    public ListAdapter(Context context, ArrayList<ExpenseItem> items) {
         this.inflater = LayoutInflater.from(context);
-        this.colors = colors;
+        this.items = items;
     }
 
     @NonNull
@@ -41,7 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return colors.size();
+        return items.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

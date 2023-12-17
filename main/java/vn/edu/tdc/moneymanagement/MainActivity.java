@@ -38,10 +38,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.popBackStack();
-            return true;
-//            finish();
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
+            } else {
+                finish();
+            }
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

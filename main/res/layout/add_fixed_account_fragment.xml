@@ -31,6 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:textSize="22sp"
+                    android:inputType="number"
                     android:textColor="#F50D0D"
                     android:hint="@string/amount_money"/>
 
@@ -104,6 +105,7 @@
         android:padding="@dimen/padding">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAdd"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/btn_height"

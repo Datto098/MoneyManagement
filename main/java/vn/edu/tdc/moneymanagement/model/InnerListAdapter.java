@@ -13,9 +13,9 @@ import java.util.List;
 
 import vn.edu.tdc.moneymanagement.R;
 
-public class InnerListAdapter extends ArrayAdapter<String> {
+public class InnerListAdapter extends ArrayAdapter<ExpenseItem> {
 
-    public InnerListAdapter(Context context, List<String> data) {
+    public InnerListAdapter(Context context, List<ExpenseItem> data) {
         super(context, R.layout.expenses_item_layout, data);
     }
 
