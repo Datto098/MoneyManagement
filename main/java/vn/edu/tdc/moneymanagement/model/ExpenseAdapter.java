@@ -12,6 +12,7 @@ import java.util.List;
 
 import vn.edu.tdc.moneymanagement.R;
 
+
 public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
 
     private final List<String> data;
@@ -46,7 +47,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            expenseListView = itemView.findViewById(R.id.listViewExpense);
+            expenseListView = itemView.findViewById(vn.edu.tdc.moneymanagement.R.id.listViewExpense);
         }
     }
 }

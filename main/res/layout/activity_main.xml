@@ -14,22 +14,14 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="Title" />
 
-    <FrameLayout
+    <LinearLayout
+        android:id="@+id/fragment_container_view_tag"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="8"
+        android:orientation="horizontal">
 
-        <!-- Content of your activity/fragment goes here -->
-
-    </FrameLayout>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavi"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_gravity="bottom"
-
-        app:menu="@menu/bottom_navi"/>
+    </LinearLayout>
+    
 
 </LinearLayout>

@@ -13,27 +13,41 @@
         android:theme="@style/Theme.MoneyManagement"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing"
+            android:name=".HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".TestEnterMoneyActivity"
-            android:exported="true" />
-        <activity
-            android:name=".TestExpensesActivity"
-            android:exported="true" />
-        <activity
-            android:name=".TestHistoryActivity"
-            android:exported="true" />
-        <activity
-            android:name=".SplashActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:exported="true">
+            android:name=".HomeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddCategoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".TestEnterMoneyActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestExpensesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

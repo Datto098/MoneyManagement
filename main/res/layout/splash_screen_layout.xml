@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageLogo"
         android:layout_width="127dp"
         android:layout_height="119dp"
-        android:background="@drawable/budget"
+        android:background="@drawable/expense"
         />
     <TextView
         android:id="@+id/lblLogo"

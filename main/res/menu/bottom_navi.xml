@@ -4,6 +4,10 @@
         android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/account"
+        android:title="Account"
+        android:icon="@drawable/wallet"/>
 
     <item
         android:id="@+id/add"

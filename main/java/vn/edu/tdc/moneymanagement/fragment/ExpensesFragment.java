@@ -22,7 +22,7 @@ public class ExpensesFragment extends Fragment {
 
         List<String> fakedata = Arrays.asList("1000", "2000", "3000");
 
-        View fragment = inflater.inflate(R.layout.expense_fragment, container, false);
+        View fragment = inflater.inflate(vn.edu.tdc.moneymanagement.R.layout.expense_fragment, container, false);
         RecyclerView expenseRecyclerView = (RecyclerView) fragment.findViewById(R.id.recyclerViewExpense);
 
         // Create and set up your custom adapter

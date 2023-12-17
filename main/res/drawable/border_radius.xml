@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Trạng thái khi nhấn -->
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:radius="10dp" /> <!-- Điều chỉnh giá trị bán kính nếu cần -->
+            <solid android:color="#CCCCCC" /> <!-- Đặt màu nền cho trạng thái nhấn -->
+        </shape>
+    </item>
+
+    <!-- Trạng thái mặc định -->
+    <item>
+        <shape
+            android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+</selector>
