@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +20,12 @@ import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.ExpenseAdapter;
 
 public class SpendingFragment extends Fragment {
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
 
         List<String> fakedata = Arrays.asList("1000", "2000", "3000");
 
@@ -31,6 +36,21 @@ public class SpendingFragment extends Fragment {
         ExpenseAdapter expenseAdapter = new ExpenseAdapter(fakedata);
         expenseRecyclerView.setAdapter(expenseAdapter);
 
+        //Get Button add spending
+        AppCompatButton btnAddSpending = fragment.findViewById(R.id.btnAdd);
+        AppCompatButton btnDeleteSpending = fragment.findViewById(R.id.btnDelete);
+        AppCompatButton btnUpdateSpending = fragment.findViewById(R.id.btnUpdate);
+
+        btnAddSpending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddSpendingFragment fragment = new AddSpendingFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_view_tag, fragment);
+                transaction.addToBackStack("fragment_spending_2");
+                transaction.commit();
+            }
+        });
 
         // Set the layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(fragment.getContext());

@@ -23,7 +23,6 @@ import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.TestEnterMoneyActivity;
 import vn.edu.tdc.moneymanagement.fragment.HistoryFragment;
 import vn.edu.tdc.moneymanagement.fragment.HomeFragment;
-import vn.edu.tdc.moneymanagement.fragment.SpendingFragment;
 
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -75,8 +74,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     HomeFragment fragment = new HomeFragment();
                     getFragment(fragment);
 
-                }
-                else if (itemID == R.id.history) {
+                } else if (itemID == R.id.history) {
                     Toast.makeText(HomeActivity.this, "History", Toast.LENGTH_SHORT).show();
                     getSupportActionBar().setTitle(R.string.lich_su);
                     HistoryFragment fragment = new HistoryFragment();
@@ -123,13 +121,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //Ham dua fragment vao
-    public  void getFragment(Fragment fragment){
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.layoutHome, fragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+    public void getFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.layoutHome, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
-
 
 
 }

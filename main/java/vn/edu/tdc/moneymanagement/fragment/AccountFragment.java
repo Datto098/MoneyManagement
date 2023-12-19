@@ -1,7 +1,6 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.viewmodel.CreationExtras;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.database.MyDatabaseAPIs;
-import vn.edu.tdc.moneymanagement.model.FixedAccount;
 
 public class AccountFragment extends Fragment {
 
@@ -62,7 +58,7 @@ public class AccountFragment extends Fragment {
                 EnterMoneyFragment fragment2 = new EnterMoneyFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment2);
-                transaction.addToBackStack("enter_money_fragment");
+                transaction.addToBackStack("fragment_enter_money");
                 transaction.commit();
 
             }
@@ -74,7 +70,7 @@ public class AccountFragment extends Fragment {
                 AddFixedAccount fragment2 = new AddFixedAccount();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment2);
-                transaction.addToBackStack("fixed_account_fragment");
+                transaction.addToBackStack("fragment_fixed_account");
                 transaction.commit();
             }
         });
@@ -85,7 +81,7 @@ public class AccountFragment extends Fragment {
                 SpendingFragment fragment3 = new SpendingFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment3);
-                transaction.addToBackStack("spending_fragment");
+                transaction.addToBackStack("fragment_spending");
                 transaction.commit();
             }
         });
@@ -118,7 +114,7 @@ public class AccountFragment extends Fragment {
 //        return total;
 //    }
 
-    private String formatNumber(long number){
+    private String formatNumber(long number) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         String formattedNumber = decimalFormat.format(number);
         return formattedNumber;

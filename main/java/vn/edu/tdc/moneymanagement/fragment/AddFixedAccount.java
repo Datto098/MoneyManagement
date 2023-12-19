@@ -1,6 +1,7 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,26 +23,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import vn.edu.tdc.moneymanagement.adapter.ListAdapter;
 import vn.edu.tdc.moneymanagement.R;
+import vn.edu.tdc.moneymanagement.adapter.ListAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabaseAPIs;
-import vn.edu.tdc.moneymanagement.model.ExpenseItem;
 import vn.edu.tdc.moneymanagement.model.FixedAccount;
 
 public class AddFixedAccount extends Fragment {
 
     public static ArrayList<FixedAccount> fixedAccounts;
-
-    private long money;
-    private String content;
-    private LocalDate date;
-    private static ListAdapter listAdapter;
     public static EditText edtMoney;
     public static EditText edtContent;
     public static AppCompatButton btnSelectDate;
-
-    private MyDatabaseAPIs databaseAPIs;
     public static AppCompatButton btnAdd;
+    private static ListAdapter listAdapter;
+    private long money;
+    private String content;
+    private LocalDate date;
+    private MyDatabaseAPIs databaseAPIs;
 
     @Nullable
     @Override
@@ -51,21 +49,18 @@ public class AddFixedAccount extends Fragment {
         //innit
         databaseAPIs = new MyDatabaseAPIs(getContext());
 
-        //Thuc hien  su ly uy quyen
+        //Thuc hien  su ly uy queen
         databaseAPIs.setCompleteListener(new MyDatabaseAPIs.CompleteListener() {
             @Override
             public void notifyToActivity(int notificationID) {
                 if (notificationID == MyDatabaseAPIs.SAY_DONE) {
                     listAdapter.notifyDataSetChanged();
                     clear();
-                }
-                else if (notificationID == MyDatabaseAPIs.DELETE_DONE) {
+                } else if (notificationID == MyDatabaseAPIs.DELETE_DONE) {
                     listAdapter.notifyDataSetChanged();
-                }
-                else if (notificationID == MyDatabaseAPIs.UPDATE_DONE) {
+                } else if (notificationID == MyDatabaseAPIs.UPDATE_DONE) {
                     listAdapter.notifyDataSetChanged();
-                }
-                else if (notificationID == MyDatabaseAPIs.GET_ALL_DONE) {
+                } else if (notificationID == MyDatabaseAPIs.GET_ALL_DONE) {
                     listAdapter.notifyDataSetChanged();
                 }
             }
@@ -77,15 +72,19 @@ public class AddFixedAccount extends Fragment {
 
         RecyclerView recyclerView = fragment.findViewById(R.id.recyclerviewParent);
 
-        edtMoney =  fragment.findViewById(R.id.lblAmountMoney);
+        edtMoney = fragment.findViewById(R.id.lblAmountMoney);
         edtContent = fragment.findViewById(R.id.lblContent);
         btnSelectDate = fragment.findViewById(R.id.lblDay);
         btnAdd = fragment.findViewById(R.id.btnAdd);
         AppCompatButton btnUpdate = fragment.findViewById(R.id.btnUpdate);
         AppCompatButton btnDelete = fragment.findViewById(R.id.btnDelete);
 
-        date = LocalDate.now();
-        btnSelectDate.setText(date.getDayOfMonth() + "-" + date.getMonthValue() + "-" + date.getYear());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            date = LocalDate.now();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            btnSelectDate.setText(date.getDayOfMonth() + "-" + date.getMonthValue() + "-" + date.getYear());
+        }
 
 
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +116,7 @@ public class AddFixedAccount extends Fragment {
             @Override
             public void onClick(View v) {
                 FixedAccount fixedAccount = getFixedAccount();
-                if(fixedAccount.getDate() != null) {
+                if (fixedAccount.getDate() != null) {
                     databaseAPIs.saveFixedAccount(fixedAccount);
                     fixedAccounts.add(fixedAccount);
                 }
@@ -128,7 +127,7 @@ public class AddFixedAccount extends Fragment {
             @Override
             public void onClick(View view) {
                 int current = ListAdapter.selectedRow;
-                if( current != -1){
+                if (current != -1) {
                     FixedAccount fixedAccount = getFixedAccount();
                     fixedAccount.setId(fixedAccounts.get(current).getId());
                     databaseAPIs.updateFixedAccount(fixedAccount);
@@ -142,7 +141,7 @@ public class AddFixedAccount extends Fragment {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ListAdapter.selectedRow != -1){
+                if (ListAdapter.selectedRow != -1) {
                     FixedAccount fixedAccount = fixedAccounts.get(ListAdapter.selectedRow);
                     databaseAPIs.deleteFixedAccount(fixedAccount);
                     Log.d("test", fixedAccount.toString());
@@ -153,7 +152,6 @@ public class AddFixedAccount extends Fragment {
         });
 
 
-
         databaseAPIs.getAllFixedAccount(fixedAccounts);
 
         listAdapter = new ListAdapter(getContext(), fixedAccounts);
@@ -162,17 +160,15 @@ public class AddFixedAccount extends Fragment {
         return fragment;
     }
 
-    private FixedAccount getFixedAccount(){
+    private FixedAccount getFixedAccount() {
         FixedAccount fixedAccount = new FixedAccount();
-        if(TextUtils.isEmpty(edtMoney.getText())){
+        if (TextUtils.isEmpty(edtMoney.getText())) {
             edtContent.requestFocus();
             Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
-        }
-        else if(TextUtils.isEmpty(edtContent.getText())){
+        } else if (TextUtils.isEmpty(edtContent.getText())) {
             edtContent.requestFocus();
             Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             money = Long.parseLong(String.valueOf(edtMoney.getText()));
             content = edtContent.getText().toString();
             String selectDate = btnSelectDate.getText().toString();
@@ -202,7 +198,7 @@ public class AddFixedAccount extends Fragment {
         return fixedAccount;
     }
 
-    private void clear(){
+    private void clear() {
         edtMoney.setText("");
         edtContent.setText("");
     }

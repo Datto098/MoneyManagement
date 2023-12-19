@@ -4,16 +4,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 
 import java.time.LocalDate;
 
-@Entity(tableName = FixedAccount.TABLE_NAME)
-public class FixedAccount {
+@Entity(tableName = TotalMoney.TABLE_NAME)
+public class TotalMoney {
 
     //Dinh nghia thuoc tinh cua bang
     @Ignore
-    public final static String TABLE_NAME = "fixed_accounts";
+    public final static String TABLE_NAME = "total_money";
     @Ignore
     public final static String ID = "_id";
     @Ignore
@@ -34,7 +33,7 @@ public class FixedAccount {
     @ColumnInfo(name = DATE)
     private LocalDate date;
 
-    public FixedAccount() {
+    public TotalMoney() {
 
     }
 
@@ -78,22 +77,4 @@ public class FixedAccount {
                 " # " + date;
     }
 
-    // Thêm lớp TypeConverter
-    public static class Converters {
-        @TypeConverter
-        public static String dateToString(LocalDate date) {
-            String result = date == null ? null : date.toString();
-//            Log.d("test", "dateToString: " + result);
-            return result;
-        }
-
-        @TypeConverter
-        public static LocalDate stringToDate(String dateString) {
-            LocalDate result = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                result = dateString == null ? null : LocalDate.parse(dateString);
-            }
-            return result;
-        }
-    }
 }
