@@ -83,32 +83,6 @@ public class MoneyAdapter extends RecyclerView.Adapter {
                 transaction.addToBackStack(null);
                 transaction.commit();
 
-
-//                if (selectedRow == -1) {
-//                    backColor = ((ColorDrawable) view.getBackground()).getColor();
-//                    view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
-//                    selectedRow = i;
-//                    prev = view;
-//                    setTotalMoney(totalMoney);
-//                    EnterMoneyFragment.btnAdd.setEnabled(false);
-//
-//                } else {
-//                    if (selectedRow == i) {
-//                        view.setBackgroundColor(backColor);
-//                        selectedRow = -1;
-//                        clearAll();
-//                        EnterMoneyFragment.btnAdd.setEnabled(true);
-//                    } else {
-//                        prev.setBackgroundColor(backColor);
-//                        view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
-//                        prev = view;
-//                        selectedRow = i;
-//                        clearAll();
-//                        setTotalMoney(totalMoney);
-//                        EnterMoneyFragment.btnAdd.setEnabled(false);
-//                    }
-//                }
-
             }
         });
 

@@ -60,7 +60,7 @@
             android:gravity="center"
             android:background="#fff"
             android:orientation="vertical"
-            android:paddingHorizontal="25dp">
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,6 +98,7 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnFindItem"
                     android:layout_width="167dp"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginTop="@dimen/margin_top"
@@ -127,20 +128,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center"
         android:padding="@dimen/padding">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_border"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:text="@string/btn_add"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:text="Huy"/>
 
     </LinearLayout>
 

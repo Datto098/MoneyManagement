@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -226,11 +227,12 @@ public class MyDatabase extends SQLiteOpenHelper {
                     TotalMoney.ID + " = ?",
                     new String[]{String.valueOf(totalMoney.getId())}
             );
+
         }
         return affectedRows;
     }
 
-    // Hàm xóa cho bảng total_count
+    // Hàm xóa cho bảng total_money_amount
     public int deleteTotalMoney(int accountId) {
         SQLiteDatabase db = getWritableDatabase();
         int affectedRows = 0;
@@ -240,7 +242,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         return affectedRows;
     }
 
-    //Lay tat ca du lieu tu bang total_count
+    //Lay tat ca du lieu tu bang total_money_amount
     public ArrayList<TotalMoney> getAllTotalMoney(){
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<TotalMoney> fixedAccounts = new ArrayList<TotalMoney>();
@@ -292,6 +294,41 @@ public class MyDatabase extends SQLiteOpenHelper {
         return totalMoney;
     }
 
+    //Ham tim ghi chi từ ngày.... đến ngày
+    public ArrayList<TotalMoney> getTotalMoneyInDateRange(LocalDate startDate, LocalDate endDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ArrayList<TotalMoney> totalMonies = new ArrayList<>();
+
+        if (db != null) {
+            String query = "SELECT * FROM " + TotalMoney.TABLE_NAME + " " +
+                    "WHERE " + TotalMoney.DATE + " BETWEEN ? AND ?";
+            String[] selectionArgs = {startDate.format(DateTimeFormatter.ISO_DATE), endDate.format(DateTimeFormatter.ISO_DATE)};
+
+            Cursor cursor = db.rawQuery(query, selectionArgs);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int iId = cursor.getColumnIndex(TotalMoney.ID);
+                    int iMoney = cursor.getColumnIndex(TotalMoney.MONEY);
+                    int iContent = cursor.getColumnIndex(TotalMoney.CONTENT);
+                    int iDate = cursor.getColumnIndex(TotalMoney.DATE);
+
+                    int id = cursor.getInt(iId);
+                    long money = cursor.getLong(iMoney);
+                    String content = cursor.getString(iContent);
+                    String dateString = cursor.getString(iDate);
+                    LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ISO_DATE);
+
+                    TotalMoney totalMoney = new TotalMoney(id, money, content, date);
+                    totalMonies.add(totalMoney);
+                } while (cursor.moveToNext());
+
+                cursor.close();
+            }
+        }
+
+        return totalMonies;
+    }
 
 
     @Override

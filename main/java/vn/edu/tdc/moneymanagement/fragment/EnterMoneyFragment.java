@@ -29,6 +29,7 @@ import java.util.Calendar;
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.MoneyAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
+import vn.edu.tdc.moneymanagement.model.FixedAccount;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
 public class EnterMoneyFragment extends Fragment {
@@ -65,8 +66,6 @@ public class EnterMoneyFragment extends Fragment {
         AppCompatButton btnAdd = fragment.findViewById(R.id.btnAdd);
         AppCompatButton btnUpdate = fragment.findViewById(R.id.btnUpdate);
         AppCompatButton btnDelete = fragment.findViewById(R.id.btnDelete);
-
-
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -108,10 +107,16 @@ public class EnterMoneyFragment extends Fragment {
             btnUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    myDatabase.updateTotalMoney(totalMoney);
-                    FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
-                    if (fragmentManager.getBackStackEntryCount() > 0) {
-                        fragmentManager.popBackStack();
+                    TotalMoney newTotalMoney = getTotalMoney();
+                    newTotalMoney.setId(totalMoney.getId());
+
+                    int check = myDatabase.updateTotalMoney(newTotalMoney);
+
+                    if (check > 0) {
+                        FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                            fragmentManager.popBackStack();
+                        }
                     }
                 }
             });
@@ -148,10 +153,8 @@ public class EnterMoneyFragment extends Fragment {
             btnDelete.setVisibility(View.GONE);
         }
 
-
         return fragment;
     }
-
 
     private TotalMoney getTotalMoney() {
         TotalMoney totalMoney = new TotalMoney();
@@ -185,7 +188,6 @@ public class EnterMoneyFragment extends Fragment {
             totalMoney.setContent(content);
             totalMoney.setDate(date);
             totalMoney.setMoney(money);
-
 
         }
         return totalMoney;
