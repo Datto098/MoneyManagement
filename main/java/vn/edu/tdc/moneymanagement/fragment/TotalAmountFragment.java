@@ -13,12 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.MoneyAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
+import vn.edu.tdc.moneymanagement.model.FixedAccount;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
+import vn.edu.tdc.moneymanagement.model.Util;
 
 public class TotalAmountFragment  extends Fragment {
 
@@ -38,6 +41,10 @@ public class TotalAmountFragment  extends Fragment {
         //Lay item từ layout
         RecyclerView recyclerView = fragment.findViewById(R.id.recyclerViewTotal);
         AppCompatButton btnAdd = fragment.findViewById(R.id.btnAdd);
+        AppCompatButton btnCancel = fragment.findViewById(R.id.btnCancel);
+        AppCompatButton btnFindItem = fragment.findViewById(R.id.btnFindItem);
+        AppCompatButton btnStartDay = fragment.findViewById(R.id.btnStartDay);
+        AppCompatButton btnEndDay = fragment.findViewById(R.id.btnEndDay);
         TextView totalMoney = fragment.findViewById(R.id.totalMoney);
 
         totalMoney.setText(AccountFragment.formatNumber(myDatabase.getTotalMoneyForCurrentMonth()) + "");
@@ -55,12 +62,41 @@ public class TotalAmountFragment  extends Fragment {
                 transaction.replace(R.id.fragment_container_view_tag, fragment2);
                 transaction.addToBackStack("fragment_enter_money");
                 transaction.commit();
+
                 adapter.notifyDataSetChanged();
             }
         });
 
+        btnFindItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
+                LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
 
+                btnAdd.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.VISIBLE);
+                totalMonies.clear();
+                ArrayList<TotalMoney> newData = myDatabase.getTotalMoneyInDateRange(startDay, endDay);
+                totalMonies.addAll(newData);
 
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAdd.setVisibility(View.VISIBLE);
+                btnCancel.setVisibility(View.GONE);
+                totalMonies.clear();
+                ArrayList<TotalMoney> newData = myDatabase.getAllTotalMoney();
+                totalMonies.addAll(newData);
+
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        Util.getStartDayAndEndDay(fragment, btnStartDay, btnEndDay);
         return fragment;
     }
 }
