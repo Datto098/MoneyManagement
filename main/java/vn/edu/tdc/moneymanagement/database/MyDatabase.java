@@ -31,24 +31,24 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        if(sqLiteDatabase != null){
+        if (sqLiteDatabase != null) {
 
             //Tao bang fixed_account
             String sqlFixedAccount = "CREATE TABLE " + FixedAccount.TABLE_NAME + " ( " +
-                    FixedAccount.ID +  " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    FixedAccount.MONEY+ " INTEGER," +
-                   FixedAccount.CONTENT+ " TEXT," +
-                   FixedAccount.DATE +  " TEXT);";
+                    FixedAccount.ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    FixedAccount.MONEY + " INTEGER," +
+                    FixedAccount.CONTENT + " TEXT," +
+                    FixedAccount.DATE + " TEXT);";
 
             sqLiteDatabase.execSQL(sqlFixedAccount);
 
 
             //Tao bang total money
             String sqlTotalMoney = "CREATE TABLE " + TotalMoney.TABLE_NAME + " ( " +
-                    TotalMoney.ID +  " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    TotalMoney.MONEY+ " INTEGER," +
-                    TotalMoney.CONTENT+ " TEXT," +
-                    TotalMoney.DATE +  " TEXT);";
+                    TotalMoney.ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    TotalMoney.MONEY + " INTEGER," +
+                    TotalMoney.CONTENT + " TEXT," +
+                    TotalMoney.DATE + " TEXT);";
 
             sqLiteDatabase.execSQL(sqlTotalMoney);
         }
@@ -72,17 +72,17 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
     //Lay tat ca du lieu tu bang fixed account
-    public ArrayList<FixedAccount> getAllFixedAccount(){
+    public ArrayList<FixedAccount> getAllFixedAccount() {
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<FixedAccount> fixedAccounts = new ArrayList<FixedAccount>();
-        if(db != null){
+        if (db != null) {
             Cursor cursor = db.rawQuery("SELECT * FROM " + FixedAccount.TABLE_NAME, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     int iId = cursor.getColumnIndex(FixedAccount.ID);
                     int iMoney = cursor.getColumnIndex(FixedAccount.MONEY);
                     int iContent = cursor.getColumnIndex(FixedAccount.CONTENT);
-                    int  iDate = cursor.getColumnIndex(FixedAccount.DATE);
+                    int iDate = cursor.getColumnIndex(FixedAccount.DATE);
 
                     int id = cursor.getInt(iId);
                     long money = cursor.getLong(iMoney);
@@ -125,7 +125,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         int affectedRows = 0;
         if (db != null) {
-            affectedRows = db.delete(FixedAccount.TABLE_NAME,FixedAccount.ID + " = ?", new String[]{String.valueOf(accountId)});
+            affectedRows = db.delete(FixedAccount.TABLE_NAME, FixedAccount.ID + " = ?", new String[]{String.valueOf(accountId)});
         }
         return affectedRows;
     }
@@ -226,32 +226,33 @@ public class MyDatabase extends SQLiteOpenHelper {
                     TotalMoney.ID + " = ?",
                     new String[]{String.valueOf(totalMoney.getId())}
             );
+
         }
         return affectedRows;
     }
 
-    // Hàm xóa cho bảng total_count
+    // Hàm xóa cho bảng total_money_amount
     public int deleteTotalMoney(int accountId) {
         SQLiteDatabase db = getWritableDatabase();
         int affectedRows = 0;
         if (db != null) {
-            affectedRows = db.delete(TotalMoney.TABLE_NAME,TotalMoney.ID + " = ?", new String[]{String.valueOf(accountId)});
+            affectedRows = db.delete(TotalMoney.TABLE_NAME, TotalMoney.ID + " = ?", new String[]{String.valueOf(accountId)});
         }
         return affectedRows;
     }
 
-    //Lay tat ca du lieu tu bang total_count
-    public ArrayList<TotalMoney> getAllTotalMoney(){
+    //Lay tat ca du lieu tu bang total_money_amount
+    public ArrayList<TotalMoney> getAllTotalMoney() {
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<TotalMoney> fixedAccounts = new ArrayList<TotalMoney>();
-        if(db != null){
+        if (db != null) {
             Cursor cursor = db.rawQuery("SELECT * FROM " + TotalMoney.TABLE_NAME, null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     int iId = cursor.getColumnIndex(TotalMoney.ID);
                     int iMoney = cursor.getColumnIndex(TotalMoney.MONEY);
                     int iContent = cursor.getColumnIndex(TotalMoney.CONTENT);
-                    int  iDate = cursor.getColumnIndex(TotalMoney.DATE);
+                    int iDate = cursor.getColumnIndex(TotalMoney.DATE);
 
                     int id = cursor.getInt(iId);
                     long money = cursor.getLong(iMoney);
@@ -292,6 +293,41 @@ public class MyDatabase extends SQLiteOpenHelper {
         return totalMoney;
     }
 
+    //Ham tim ghi chi từ ngày.... đến ngày
+    public ArrayList<TotalMoney> getTotalMoneyInDateRange(LocalDate startDate, LocalDate endDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ArrayList<TotalMoney> totalMonies = new ArrayList<>();
+
+        if (db != null) {
+            String query = "SELECT * FROM " + TotalMoney.TABLE_NAME + " " +
+                    "WHERE " + TotalMoney.DATE + " BETWEEN ? AND ?";
+            String[] selectionArgs = {startDate.format(DateTimeFormatter.ISO_DATE), endDate.format(DateTimeFormatter.ISO_DATE)};
+
+            Cursor cursor = db.rawQuery(query, selectionArgs);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int iId = cursor.getColumnIndex(TotalMoney.ID);
+                    int iMoney = cursor.getColumnIndex(TotalMoney.MONEY);
+                    int iContent = cursor.getColumnIndex(TotalMoney.CONTENT);
+                    int iDate = cursor.getColumnIndex(TotalMoney.DATE);
+
+                    int id = cursor.getInt(iId);
+                    long money = cursor.getLong(iMoney);
+                    String content = cursor.getString(iContent);
+                    String dateString = cursor.getString(iDate);
+                    LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ISO_DATE);
+
+                    TotalMoney totalMoney = new TotalMoney(id, money, content, date);
+                    totalMonies.add(totalMoney);
+                } while (cursor.moveToNext());
+
+                cursor.close();
+            }
+        }
+
+        return totalMonies;
+    }
 
 
     @Override

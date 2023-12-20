@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -40,7 +39,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tồng số dư "
+                android:text="@string/balance"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/textPrice"
@@ -79,9 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
-                android:text="Hạn mức chi tiêu : "
-                android:textSize="22dp"
+                android:text="@string/limit_expense"
                 android:textColor="@color/black"
+                android:textSize="22dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,9 +113,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:text="Đã sử dụng : "
-                android:textSize="22dp"
+                android:text="@string/used"
                 android:textColor="@color/black"
+                android:textSize="22dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textPriceBl" />
 
@@ -149,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
-                android:text="Đã sử dụng quá hạn mức"
+                android:text="@string/pass_limit"
                 android:textColor="@color/red"
                 android:textSize="22dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +161,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:paddingHorizontal="13dp"
-                android:text="Với số tiền này bạn có thể thể sử dụng thêm ... ngày "
+                android:text="@string/note"
                 android:textColor="@color/gray"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"

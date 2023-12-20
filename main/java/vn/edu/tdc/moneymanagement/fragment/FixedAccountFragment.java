@@ -1,16 +1,15 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,18 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.ListAdapter;
-import vn.edu.tdc.moneymanagement.adapter.MoneyAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
 import vn.edu.tdc.moneymanagement.model.FixedAccount;
 import vn.edu.tdc.moneymanagement.model.Util;
 
 public class FixedAccountFragment extends Fragment {
 
+    public static String currentTitle = "Khoản chi cố định";
+    public static String prevTitle = "Tài khoản";
     private MyDatabase myDatabase;
     private ArrayList<FixedAccount> fixedAccounts;
     private ListAdapter adapter;
@@ -55,8 +53,6 @@ public class FixedAccountFragment extends Fragment {
         AppCompatButton btnFindItem = fragment.findViewById(R.id.btnFindItem);
         TextView fixedMoney = fragment.findViewById(R.id.fixedMoney);
 
-
-
         fixedMoney.setText(AccountFragment.formatNumber(myDatabase.getTotalFixedAccountForCurrentMonth()) + "");
 
         fixedAccounts = myDatabase.getAllFixedAccount();
@@ -72,6 +68,10 @@ public class FixedAccountFragment extends Fragment {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment);
                 transaction.addToBackStack("fragment_enter_money");
+                // Đặt lại tiêu đề của Toolbar trong Activity
+                if (getActivity() != null) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(AddFixedAccount.currentTitle);
+                }
                 transaction.commit();
             }
         });
@@ -81,8 +81,8 @@ public class FixedAccountFragment extends Fragment {
             public void onClick(View view) {
                 LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
                 LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
-                ArrayList<FixedAccount> fs =  myDatabase.getFixedAccountsInDateRange(startDay, endDay);
-                for (FixedAccount fixedAccount : fs){
+                ArrayList<FixedAccount> fs = myDatabase.getFixedAccountsInDateRange(startDay, endDay);
+                for (FixedAccount fixedAccount : fs) {
                     Log.d("test", fixedAccount.toString());
                 }
             }

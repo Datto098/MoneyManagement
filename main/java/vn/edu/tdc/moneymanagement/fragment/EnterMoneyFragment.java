@@ -1,11 +1,9 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import vn.edu.tdc.moneymanagement.R;
-import vn.edu.tdc.moneymanagement.adapter.MoneyAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
@@ -36,19 +31,19 @@ public class EnterMoneyFragment extends Fragment {
     public static EditText edtMoney;
     public static EditText edtContent;
     public static AppCompatButton btnSelectDate;
+    public static String prevTitle = "Tổng tiền";
+    public static String currentTitle = "Thêm tổng tiền";
     private long money;
     private String content;
     private LocalDate date;
-
     private MyDatabase myDatabase;
-
     private TotalMoney totalMoney;
 
-    public EnterMoneyFragment(TotalMoney totalMoney){
+    public EnterMoneyFragment(TotalMoney totalMoney) {
         this.totalMoney = totalMoney;
     }
 
-    public EnterMoneyFragment(){
+    public EnterMoneyFragment() {
 
     }
 
@@ -65,8 +60,6 @@ public class EnterMoneyFragment extends Fragment {
         AppCompatButton btnAdd = fragment.findViewById(R.id.btnAdd);
         AppCompatButton btnUpdate = fragment.findViewById(R.id.btnUpdate);
         AppCompatButton btnDelete = fragment.findViewById(R.id.btnDelete);
-
-
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -102,14 +95,14 @@ public class EnterMoneyFragment extends Fragment {
         });
 
         // Add total money
-        if(totalMoney != null){
+        if (totalMoney != null) {
             setTotalMoney(totalMoney);
             // Update total money
             btnUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     myDatabase.updateTotalMoney(totalMoney);
-                    FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                     if (fragmentManager.getBackStackEntryCount() > 0) {
                         fragmentManager.popBackStack();
                     }
@@ -121,7 +114,7 @@ public class EnterMoneyFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     myDatabase.deleteTotalMoney(totalMoney.getId());
-                    FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                     if (fragmentManager.getBackStackEntryCount() > 0) {
                         fragmentManager.popBackStack();
                     }
@@ -129,15 +122,14 @@ public class EnterMoneyFragment extends Fragment {
             });
 
             btnAdd.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TotalMoney totalMoney = getTotalMoney();
                     if (totalMoney.getDate() != null) {
                         myDatabase.addTotalMoney(totalMoney);
-                        FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                         if (fragmentManager.getBackStackEntryCount() > 0) {
                             fragmentManager.popBackStack();
                         }

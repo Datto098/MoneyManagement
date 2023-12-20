@@ -1,7 +1,6 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,12 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import vn.edu.tdc.moneymanagement.R;
-import vn.edu.tdc.moneymanagement.activity.MainActivity;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
 
 public class AccountFragment extends Fragment {
 
+    public static String prevTitle = "Trang chủ";
+    public static String currentTitle = "Tài khoản";
     private View fragment;
     private MyDatabase myDatabase;
 
@@ -33,9 +33,6 @@ public class AccountFragment extends Fragment {
         return formattedNumber;
     }
 
-//    public void onLinearLayoutClick(View view) {
-//        Log.d("test", "onClick");
-//    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -43,6 +40,9 @@ public class AccountFragment extends Fragment {
         LinearLayout totalAmount = fragment.findViewById(R.id.total_amount);
         LinearLayout fixedAmount = fragment.findViewById(R.id.fixed_amount);
         LinearLayout spendingAmount = fragment.findViewById(R.id.spending_amount);
+
+        AccountFragment.currentTitle = fragment.getResources().getString(R.string.account);
+        AccountFragment.prevTitle = fragment.getResources().getString(R.string.home_page);
 
         //innit
         myDatabase = new MyDatabase(getContext());
@@ -90,8 +90,7 @@ public class AccountFragment extends Fragment {
                 transaction.addToBackStack("fragment_enter_money");
                 // Đặt lại tiêu đề của Toolbar trong Activity
                 if (getActivity() != null) {
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Thêm tổng tiền");
-                    MainActivity.prevTitle = "Tài khoản";
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(TotalAmountFragment.currentTitle);
                 }
                 transaction.commit();
 
@@ -107,8 +106,7 @@ public class AccountFragment extends Fragment {
                 transaction.addToBackStack("fragment_fixed_account");
                 // Đặt lại tiêu đề của Toolbar trong Activity
                 if (getActivity() != null) {
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Thêm khoản chi");
-                    MainActivity.prevTitle = "Tài khoản";
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(FixedAccountFragment.currentTitle);
                 }
                 transaction.commit();
             }
@@ -121,45 +119,16 @@ public class AccountFragment extends Fragment {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment3);
                 transaction.addToBackStack("fragment_spending");
-
-                // Lấy tiêu đề hiện tại của Toolbar
-                String currentTitle = "Tổng chi"; // Đặt tiêu đề mới của màn hình hiện tại
-                String prevTitle = MainActivity.prevTitle;
-                Log.d("prev title: ", prevTitle);
-                // Cập nhật biến prevTitle
-                MainActivity.prevTitle = "Tài khoản";
-
-                // Kiểm tra xem tiêu đề mới có trùng với tiêu đề cũ hay không
-                if (getActivity() != null && !currentTitle.equals(prevTitle)) {
-                    // Đặt lại tiêu đề của Toolbar trong Activity
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(currentTitle);
-
-                    // Cập nhật biến prevTitle
-                    MainActivity.prevTitle = currentTitle;
+                // Đặt lại tiêu đề của Toolbar trong Activity
+                if (getActivity() != null) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(SpendingFragment.currentTitle);
                 }
-
                 transaction.commit();
             }
         });
-
-
-        // Create and set up your custom adapter
-
-
         return fragment;
     }
 
-//    private long getTotalMoneyOfThisMonth(){
-//        LocalDate localDate = LocalDate.now();
-//        long total = 0;
-//        for(FixedAccount fixedAccount : fixedAccounts){
-//            if((fixedAccount.getDate().getMonthValue() == localDate.getMonthValue()) && (fixedAccount.getDate().getYear() == localDate.getYear())){
-//                total = total + fixedAccount.getMoney();
-//            }
-//        }
-//
-//        return total;
-//    }
 
     @NonNull
     @Override

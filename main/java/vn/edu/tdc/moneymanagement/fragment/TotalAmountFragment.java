@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,8 +21,10 @@ import vn.edu.tdc.moneymanagement.adapter.MoneyAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
-public class TotalAmountFragment  extends Fragment {
+public class TotalAmountFragment extends Fragment {
 
+    public static String currentTitle = "Tổng tiền";
+    public static String prevTitle = "Tài khoản";
     private MyDatabase myDatabase;
     private ArrayList<TotalMoney> totalMonies;
     private MoneyAdapter adapter;
@@ -54,11 +57,14 @@ public class TotalAmountFragment  extends Fragment {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment2);
                 transaction.addToBackStack("fragment_enter_money");
+                // Đặt lại tiêu đề của Toolbar trong Activity
+                if (getActivity() != null) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(EnterMoneyFragment.currentTitle);
+                }
                 transaction.commit();
                 adapter.notifyDataSetChanged();
             }
         });
-
 
 
         return fragment;

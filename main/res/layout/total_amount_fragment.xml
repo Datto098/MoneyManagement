@@ -57,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:gravity="center"
             android:background="#fff"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="25dp">
 
@@ -80,20 +80,20 @@
                         android:layout_height="@dimen/btn_height"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
                         android:background="@drawable/button_outline"
-                        android:text="@string/start_day" />
+                        android:text="@string/start_day"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnEndDay"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/btn_height"
                         android:layout_weight="1"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
                         android:background="@drawable/button_outline"
-                        android:text="@string/end_day" />
+                        android:text="@string/end_day"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -119,7 +119,7 @@
             android:id="@+id/recyclerViewTotal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
     </LinearLayout>
@@ -128,28 +128,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/padding">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAdd"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/button_border"
-            android:textColor="@color/white"
+            android:text="@string/btn_add"
             android:textAllCaps="false"
-            android:text="@string/btn_add"/>
+            android:textColor="@color/white" />
 
     </LinearLayout>
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/recyclerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-    <!--        android:padding="20dp"/>-->
-
-
 </LinearLayout>

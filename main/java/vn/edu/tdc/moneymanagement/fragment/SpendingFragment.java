@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,20 +21,20 @@ import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.ExpenseAdapter;
 
 public class SpendingFragment extends Fragment {
-
+    public static String currentTitle = "Các khoản chi tiêu";
+    public static String prevTitle = "Tài khoản";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        List<String> fakedata = Arrays.asList("1000", "2000", "3000");
+        List<String> fakeData = Arrays.asList("1000", "2000", "3000");
 
         View fragment = inflater.inflate(R.layout.expense_fragment, container, false);
         RecyclerView expenseRecyclerView = fragment.findViewById(R.id.recyclerViewExpense);
-
         // Create and set up your custom adapter
-        ExpenseAdapter expenseAdapter = new ExpenseAdapter(fakedata);
+        ExpenseAdapter expenseAdapter = new ExpenseAdapter(fakeData);
         expenseRecyclerView.setAdapter(expenseAdapter);
 
         //Get Button add spending
@@ -48,6 +49,10 @@ public class SpendingFragment extends Fragment {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment);
                 transaction.addToBackStack("fragment_spending_2");
+                // Đặt lại tiêu đề của Toolbar trong Activity
+                if (getActivity() != null) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(AddSpendingFragment.currentTitle);
+                }
                 transaction.commit();
             }
         });

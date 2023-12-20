@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     android:background="@color/white"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -21,6 +20,7 @@
             android:layout_weight="5"
             android:orientation="vertical"
             android:padding="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,23 +30,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/lblDay"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="28"
-                        android:textSize="@dimen/text_size_big"
                         android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_big"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="9"
                     android:layout_gravity="center"
+                    android:layout_weight="9"
                     android:orientation="vertical">
 
                     <TextView
@@ -54,12 +55,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
-                        android:text="11/2023" />
+                        android:text="11/2023"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -87,8 +89,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@string/ti_n_i_n"
                 android:textColor="@color/black"
-                android:text="Tiền điện" />
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/lblMoney"
@@ -96,8 +99,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:textColor="@color/black"
-                android:text="1.000.000" />
+                android:text="1.000.000"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <View

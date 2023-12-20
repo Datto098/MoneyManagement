@@ -19,8 +19,11 @@ import vn.edu.tdc.moneymanagement.adapter.SpinnerItemAdapter;
 
 public class AddSpendingFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    public static String prevTitle = "Các khoản chi tiêu";
+    public static String currentTitle = "Thêm khoản chi mới";
     private ArrayList<String> categories;
     private ArrayList<Integer> icons;
+
 
     @Nullable
     @Override
@@ -29,6 +32,7 @@ public class AddSpendingFragment extends Fragment implements AdapterView.OnItemS
 
         categories = new ArrayList<String>();
         icons = new ArrayList<Integer>();
+
 
         //Add select category
         categories.add("Ăn uống");

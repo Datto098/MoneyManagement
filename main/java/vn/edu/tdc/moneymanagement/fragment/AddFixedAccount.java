@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import vn.edu.tdc.moneymanagement.R;
@@ -35,28 +33,29 @@ public class AddFixedAccount extends Fragment {
     public static EditText edtMoney;
     public static EditText edtContent;
     public static AppCompatButton btnSelectDate;
+    public static String prevTitle = "Các khoản chi cố định";
+    public static String currentTitle = "Thêm khoản chi mới";
     private static ListAdapter listAdapter;
     private long money;
     private String content;
     private LocalDate date;
-
     private MyDatabase myDatabase;
     private FixedAccount fixedAccount;
 
     //Constructor
-    public AddFixedAccount(){
+    public AddFixedAccount() {
 
     }
 
-    public  AddFixedAccount(FixedAccount fixedAccount){
+    public AddFixedAccount(FixedAccount fixedAccount) {
         this.fixedAccount = fixedAccount;
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.add_fixed_account_fragment, container, false);
-
         //innit
         myDatabase = new MyDatabase(getContext());
 
@@ -103,27 +102,27 @@ public class AddFixedAccount extends Fragment {
             }
         });
 
-        if(fixedAccount != null){
+        if (fixedAccount != null) {
             setFixedAccount(fixedAccount);
             btnUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        int check = myDatabase.updateFixedAccount(fixedAccount);
-                        if(check != 0 && check != -1){
-                            FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
-                            if (fragmentManager.getBackStackEntryCount() > 0) {
-                                fragmentManager.popBackStack();
-                            }
+                    int check = myDatabase.updateFixedAccount(fixedAccount);
+                    if (check != 0 && check != -1) {
+                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                            fragmentManager.popBackStack();
                         }
+                    }
                 }
             });
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                      int check =   myDatabase.deleteFixedAccount(fixedAccount.getId());
-                    if(check != 0 && check != -1){
-                        FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                    int check = myDatabase.deleteFixedAccount(fixedAccount.getId());
+                    if (check != 0 && check != -1) {
+                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                         if (fragmentManager.getBackStackEntryCount() > 0) {
                             fragmentManager.popBackStack();
                         }
@@ -132,16 +131,15 @@ public class AddFixedAccount extends Fragment {
             });
 
             btnAdd.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     FixedAccount fixedAccount = getFixedAccount();
                     if (fixedAccount.getDate() != null) {
                         long check = myDatabase.addFixedAccount(fixedAccount);
-                        if(check != 0 && check != -1){
-                            FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        if (check != 0 && check != -1) {
+                            FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                             if (fragmentManager.getBackStackEntryCount() > 0) {
                                 fragmentManager.popBackStack();
                             }
@@ -195,11 +193,6 @@ public class AddFixedAccount extends Fragment {
         return fixedAccount;
     }
 
-    private void clear() {
-        edtMoney.setText("");
-        edtContent.setText("");
-    }
-
     //Ham set
     private void setFixedAccount(FixedAccount fixed) {
         AddFixedAccount.edtMoney.setText(fixed.getMoney() + "");
@@ -207,6 +200,11 @@ public class AddFixedAccount extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             AddFixedAccount.btnSelectDate.setText(fixed.getDate().getDayOfMonth() + "-" + fixed.getDate().getMonthValue() + "-" + fixed.getDate().getYear());
         }
+    }
+
+    private void clear() {
+        edtMoney.setText("");
+        edtContent.setText("");
     }
 
 
