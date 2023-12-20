@@ -1,13 +1,8 @@
 package vn.edu.tdc.moneymanagement.model;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
 
-@Entity(tableName = TotalMoney.TABLE_NAME)
 public class TotalMoney {
 
     //Dinh nghia thuoc tinh cua bang

@@ -129,6 +129,8 @@ public class EnterMoneyFragment extends Fragment {
             });
 
             btnAdd.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.VISIBLE);
+            btnUpdate.setVisibility(View.VISIBLE);
         }
         else{
             btnAdd.setOnClickListener(new View.OnClickListener() {

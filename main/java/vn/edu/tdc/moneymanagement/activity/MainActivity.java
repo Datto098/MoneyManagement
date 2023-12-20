@@ -11,16 +11,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.RoomDatabase;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.ListAdapter;
 import vn.edu.tdc.moneymanagement.fragment.AccountFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static String prevTitle = "";
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.account);
+        prevTitle = "Tài khoản";
 
 
         AccountFragment fragment = new AccountFragment();
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager.getBackStackEntryCount() > 0) {
+                getSupportActionBar().setTitle(prevTitle);
                 fragmentManager.popBackStack();
             } else {
                 finish();

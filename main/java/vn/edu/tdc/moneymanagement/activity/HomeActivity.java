@@ -20,7 +20,6 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import vn.edu.tdc.moneymanagement.R;
-import vn.edu.tdc.moneymanagement.TestEnterMoneyActivity;
 import vn.edu.tdc.moneymanagement.fragment.HistoryFragment;
 import vn.edu.tdc.moneymanagement.fragment.HomeFragment;
 
@@ -71,15 +70,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 if (itemID == R.id.home) {
                     Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
                     getSupportActionBar().setTitle(R.string.home);
+                    MainActivity.prevTitle = "Trang chủ";
                     HomeFragment fragment = new HomeFragment();
                     getFragment(fragment);
 
                 } else if (itemID == R.id.history) {
                     Toast.makeText(HomeActivity.this, "History", Toast.LENGTH_SHORT).show();
                     getSupportActionBar().setTitle(R.string.lich_su);
+                    MainActivity.prevTitle = "Trang chủ";
                     HistoryFragment fragment = new HistoryFragment();
                     getFragment(fragment);
                 } else if (itemID == R.id.account) {
+                    MainActivity.prevTitle = "Trang chủ";
                     Toast.makeText(HomeActivity.this, "Account", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -104,18 +106,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.nav_home) {
-
-        } else if (menuItem.getItemId() == R.id.nav_account) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-        } else if (menuItem.getItemId() == R.id.nav_totalPrice) {
-            Intent intent = new Intent(this, TestEnterMoneyActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(this, TestEnterMoneyActivity.class);
-            startActivity(intent);
-        }
+//        if (menuItem.getItemId() == R.id.nav_home) {
+//
+//        } else if (menuItem.getItemId() == R.id.nav_account) {
+//            Intent intent = new Intent(this, HomeActivity.class);
+//            startActivity(intent);
+//        } else if (menuItem.getItemId() == R.id.nav_totalPrice) {
+//            Intent intent = new Intent(this, TestEnterMoneyActivity.class);
+//            startActivity(intent);
+//        } else {
+//            Intent intent = new Intent(this, TestEnterMoneyActivity.class);
+//            startActivity(intent);
+//        }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

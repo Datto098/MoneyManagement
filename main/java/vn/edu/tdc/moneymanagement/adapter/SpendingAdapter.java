@@ -2,45 +2,44 @@ package vn.edu.tdc.moneymanagement.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.fragment.AddFixedAccount;
-import vn.edu.tdc.moneymanagement.fragment.EnterMoneyFragment;
+import vn.edu.tdc.moneymanagement.fragment.AddSpendingFragment;
 import vn.edu.tdc.moneymanagement.model.FixedAccount;
+import vn.edu.tdc.moneymanagement.model.SpendingAccount;
+import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
+public class SpendingAdapter extends RecyclerView.Adapter {
 
-public class ListAdapter extends RecyclerView.Adapter {
-    private ArrayList<FixedAccount> items;
+    Context context;
+    private ArrayList<SpendingAccount> spendingAccounts;
     private LayoutInflater inflater;
-    private Context context;
 
-    public ListAdapter(Context context, ArrayList<FixedAccount> items) {
+    public SpendingAdapter(Context context, ArrayList<SpendingAccount> spendingAccounts) {
         this.inflater = LayoutInflater.from(context);
-        this.items = items;
+        this.spendingAccounts = spendingAccounts;
         this.context = context;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.recyclerview_item, parent, false);
+        View view = inflater.inflate(R.layout.expenses_item_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -48,21 +47,22 @@ public class ListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder holder1 = (ViewHolder) holder;
 
-        FixedAccount fixed = items.get(position);
+        SpendingAccount spendingAccount = spendingAccounts.get(position);
         String day = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            day = fixed.getDate().getDayOfMonth() + "";
+            day = spendingAccount.getDate().getDayOfMonth() + "";
         }
         String monthAndYear = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            monthAndYear = fixed.getDate().getMonthValue() + "/" + fixed.getDate().getYear();
+            monthAndYear = spendingAccount.getDate().getMonthValue() + "/" + spendingAccount.getDate().getYear();
         }
         holder1.lblDay.setText(day);
         holder1.lblMonthAndYear.setText(monthAndYear);
-        holder1.lblContent.setText(fixed.getContent());
+        holder1.lblContent.setText(spendingAccount.getCategory().getContent());
+        holder1.imageView.setImageResource((int) spendingAccount.getCategory().getIcon());
 
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        String formattedNumber = decimalFormat.format(fixed.getMoney());
+        String formattedNumber = decimalFormat.format(spendingAccount.getMoney());
 
         holder1.lblMoney.setText(formattedNumber);
         int i = position;
@@ -72,7 +72,7 @@ public class ListAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
 
-                AddFixedAccount fragment = new AddFixedAccount(fixed);
+                AddSpendingFragment fragment = new AddSpendingFragment(spendingAccount);
                 FragmentTransaction transaction=((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag,fragment);
                 transaction.addToBackStack(null);
@@ -80,32 +80,29 @@ public class ListAdapter extends RecyclerView.Adapter {
 
             }
         });
-
-
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return spendingAccounts.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout linearItem;
-
         TextView lblDay;
         TextView lblMonthAndYear;
         TextView lblContent;
         TextView lblMoney;
+        ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             lblDay = itemView.findViewById(R.id.lblDay);
             lblMonthAndYear = itemView.findViewById(R.id.lblMonthAndYear);
-            lblContent = itemView.findViewById(R.id.lblContent);
-            lblMoney = itemView.findViewById(R.id.lblMoney);
+            lblContent = itemView.findViewById(R.id.lbl_content);
+            lblMoney = itemView.findViewById(R.id.lbl_money);
+            imageView = itemView.findViewById(R.id.imageIcon);
             linearItem = itemView.findViewById(R.id.linearItem);
         }
     }
 }
-
-

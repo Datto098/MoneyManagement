@@ -1,7 +1,6 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,54 +10,51 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import vn.edu.tdc.moneymanagement.R;
-import vn.edu.tdc.moneymanagement.adapter.ExpenseAdapter;
+import vn.edu.tdc.moneymanagement.adapter.CategoryAdapter;
 import vn.edu.tdc.moneymanagement.adapter.ListAdapter;
-import vn.edu.tdc.moneymanagement.adapter.SpendingAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
-import vn.edu.tdc.moneymanagement.model.SpendingAccount;
+import vn.edu.tdc.moneymanagement.model.Category;
+import vn.edu.tdc.moneymanagement.model.FixedAccount;
 
-public class ExpensesFragment extends Fragment {
+public class CategoryListFragment extends Fragment {
 
-
-    private ArrayList<SpendingAccount> spendingAccounts;
     private MyDatabase myDatabase;
-    private SpendingAdapter adapter;
+    private ArrayList<Category> categories;
+    private CategoryAdapter adapter;
 
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragment = inflater.inflate(vn.edu.tdc.moneymanagement.R.layout.expense_fragment, container, false);
+        View fragment = inflater.inflate(R.layout.category_list_fragment, container, false);
 
         //innit database
         myDatabase = new MyDatabase(getContext());
 
-        spendingAccounts = new ArrayList<>();
-        spendingAccounts = myDatabase.getAllSpendingAccounts();
-        Log.d("test", spendingAccounts.size() + "");
+        categories = new ArrayList<>();
 
-        RecyclerView expenseRecyclerView = fragment.findViewById(R.id.recyclerViewExpense);
+        RecyclerView listCategory = fragment.findViewById(R.id.listCategory);
         AppCompatButton btnAdd = fragment.findViewById(R.id.btnAdd);
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddSpendingFragment fragment = new AddSpendingFragment();
+                AddCategoryFragment fragment = new AddCategoryFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment);
-                transaction.addToBackStack(null);
+                transaction.addToBackStack("fragment_spending_2");
                 transaction.commit();
             }
         });
 
-
-        adapter = new SpendingAdapter(getContext(), spendingAccounts);
-        expenseRecyclerView.setAdapter(adapter);
+        categories = myDatabase.getAllCategory();
+        adapter = new CategoryAdapter(getContext(), categories);
+        listCategory.setAdapter(adapter);
 
 
         return fragment;

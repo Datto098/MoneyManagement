@@ -78,7 +78,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewExpense"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </LinearLayout>
 
 
@@ -92,34 +93,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/button_border"
             android:text="@string/btn_add"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnUpdate"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_border"
-            android:text="@string/btn_update"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDelete"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
-            android:layout_weight="1"
-            android:background="@drawable/button_border"
-            android:text="@string/btn_delete"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>

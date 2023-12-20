@@ -1,6 +1,7 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +10,32 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.viewmodel.CreationExtras;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 import vn.edu.tdc.moneymanagement.R;
+import vn.edu.tdc.moneymanagement.activity.MainActivity;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
 
 public class AccountFragment extends Fragment {
 
     private View fragment;
     private MyDatabase myDatabase;
+
+    public static String formatNumber(long number) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        String formattedNumber = decimalFormat.format(number);
+        return formattedNumber;
+    }
+
+//    public void onLinearLayoutClick(View view) {
+//        Log.d("test", "onClick");
+//    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -38,8 +52,33 @@ public class AccountFragment extends Fragment {
         TextView fixedMoney = fragment.findViewById(R.id.fixedMoney);
         TextView spendingMoney = fragment.findViewById(R.id.spendingMoney);
 
+        // Get date
+        TextView dateTotalMoney = fragment.findViewById(R.id.dateTotalMoney);
+        TextView dateFixedAmount = fragment.findViewById(R.id.dateFixedAmount);
+        TextView dateSpending = fragment.findViewById(R.id.dateSpendingAmount);
+
+        // Set date
+        Calendar calendar = Calendar.getInstance();
+
+        // Lấy tháng và năm
+        int currentMonth = calendar.get(Calendar.MONTH) + 1; // Tháng bắt đầu từ 0 nên cộng thêm 1
+        int currentYear = calendar.get(Calendar.YEAR);
+
+
+        dateTotalMoney.setText(currentMonth + "/" + currentYear);
+        dateFixedAmount.setText(currentMonth + "/" + currentYear);
+        dateSpending.setText(currentMonth + "/" + currentYear);
+
+        long total = myDatabase.getTotalMoneyForCurrentMonth();
+        long fixed = myDatabase.getTotalFixedAccountForCurrentMonth();
+
+        long balance = total - fixed;
+
+
         fixedMoney.setText(formatNumber(myDatabase.getTotalFixedAccountForCurrentMonth()) + " đ");
         totalMoney.setText(formatNumber(myDatabase.getTotalMoneyForCurrentMonth()) + " đ");
+
+        spendingMoney.setText(formatNumber(balance) + " đ");
 
 
         totalAmount.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +88,11 @@ public class AccountFragment extends Fragment {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment2);
                 transaction.addToBackStack("fragment_enter_money");
+                // Đặt lại tiêu đề của Toolbar trong Activity
+                if (getActivity() != null) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Thêm tổng tiền");
+                    MainActivity.prevTitle = "Tài khoản";
+                }
                 transaction.commit();
 
             }
@@ -61,6 +105,11 @@ public class AccountFragment extends Fragment {
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment);
                 transaction.addToBackStack("fragment_fixed_account");
+                // Đặt lại tiêu đề của Toolbar trong Activity
+                if (getActivity() != null) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Thêm khoản chi");
+                    MainActivity.prevTitle = "Tài khoản";
+                }
                 transaction.commit();
             }
         });
@@ -68,28 +117,36 @@ public class AccountFragment extends Fragment {
         spendingAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpendingFragment fragment3 = new SpendingFragment();
+                ExpensesFragment fragment3 = new ExpensesFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment3);
                 transaction.addToBackStack("fragment_spending");
+
+                // Lấy tiêu đề hiện tại của Toolbar
+                String currentTitle = "Tổng chi"; // Đặt tiêu đề mới của màn hình hiện tại
+                String prevTitle = MainActivity.prevTitle;
+                Log.d("prev title: ", prevTitle);
+                // Cập nhật biến prevTitle
+                MainActivity.prevTitle = "Tài khoản";
+
+                // Kiểm tra xem tiêu đề mới có trùng với tiêu đề cũ hay không
+                if (getActivity() != null && !currentTitle.equals(prevTitle)) {
+                    // Đặt lại tiêu đề của Toolbar trong Activity
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(currentTitle);
+
+                    // Cập nhật biến prevTitle
+                    MainActivity.prevTitle = currentTitle;
+                }
+
                 transaction.commit();
             }
         });
+
 
         // Create and set up your custom adapter
 
 
         return fragment;
-    }
-
-//    public void onLinearLayoutClick(View view) {
-//        Log.d("test", "onClick");
-//    }
-
-    @NonNull
-    @Override
-    public CreationExtras getDefaultViewModelCreationExtras() {
-        return super.getDefaultViewModelCreationExtras();
     }
 
 //    private long getTotalMoneyOfThisMonth(){
@@ -104,9 +161,9 @@ public class AccountFragment extends Fragment {
 //        return total;
 //    }
 
-    public static String formatNumber(long number) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        String formattedNumber = decimalFormat.format(number);
-        return formattedNumber;
+    @NonNull
+    @Override
+    public CreationExtras getDefaultViewModelCreationExtras() {
+        return super.getDefaultViewModelCreationExtras();
     }
 }

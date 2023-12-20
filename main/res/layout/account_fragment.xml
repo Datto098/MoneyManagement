@@ -41,6 +41,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/dateTotalMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -74,10 +75,10 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/border_radius"
+        android:clickable="true"
         android:orientation="horizontal"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:clickable="true">
+        android:paddingBottom="5dp">
 
 
         <ImageView
@@ -102,6 +103,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/dateFixedAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -135,10 +137,10 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/border_radius"
+        android:clickable="true"
         android:orientation="horizontal"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:clickable="true">
+        android:paddingBottom="5dp">
 
         <ImageView
             android:layout_width="50dp"
@@ -162,11 +164,12 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/dateSpendingAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/black"
                 android:text="dd/MM/yyyy"
+                android:textColor="@color/black"
                 android:textSize="13sp" />
 
         </LinearLayout>
