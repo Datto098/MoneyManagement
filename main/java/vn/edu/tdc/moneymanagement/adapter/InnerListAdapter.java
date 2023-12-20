@@ -1,4 +1,4 @@
-package vn.edu.tdc.moneymanagement.model;
+package vn.edu.tdc.moneymanagement.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 import vn.edu.tdc.moneymanagement.R;
+import vn.edu.tdc.moneymanagement.model.ExpenseItem;
 
 public class InnerListAdapter extends ArrayAdapter<ExpenseItem> {
 

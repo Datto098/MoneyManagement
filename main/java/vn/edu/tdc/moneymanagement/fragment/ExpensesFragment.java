@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import vn.edu.tdc.moneymanagement.R;
-import vn.edu.tdc.moneymanagement.model.ExpenseAdapter;
+import vn.edu.tdc.moneymanagement.adapter.ExpenseAdapter;
 
 public class ExpensesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

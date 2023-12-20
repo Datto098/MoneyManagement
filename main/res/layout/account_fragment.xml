@@ -23,7 +23,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:src="@drawable/wallet" />
+            android:src="@drawable/total" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:text="Total money"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
@@ -55,12 +56,13 @@
             android:gravity="end">
 
             <TextView
+                android:id="@+id/totalMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="3.000.000 đ"
                 android:textColor="@color/primary"
-                android:textSize="22dp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -83,7 +85,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:src="@drawable/wallet" />
+            android:src="@drawable/expenses" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -92,11 +94,11 @@
             android:padding="10dp">
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:text="Fixed amount"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
@@ -115,12 +117,13 @@
             android:gravity="end">
 
             <TextView
+                android:id="@+id/fixedMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1.000.000 đ"
                 android:textColor="@color/red"
-                android:textSize="22dp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -142,7 +145,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:src="@drawable/wallet" />
+            android:src="@drawable/accounting" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -162,6 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/black"
                 android:text="dd/MM/yyyy"
                 android:textSize="13sp" />
 
@@ -174,12 +178,13 @@
             android:gravity="end">
 
             <TextView
+                android:id="@+id/spendingMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="2.000.000 đ"
                 android:textColor="@color/green"
-                android:textSize="22dp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

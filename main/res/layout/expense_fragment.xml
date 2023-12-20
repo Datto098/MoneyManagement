@@ -91,13 +91,35 @@
         android:padding="@dimen/padding">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnAddSpending"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height"
+            android:layout_weight="1"
             android:background="@drawable/button_border"
-            android:text="Thêm chi tiêu"
+            android:text="@string/btn_add"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:text="@string/btn_update"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:text="@string/btn_delete"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>

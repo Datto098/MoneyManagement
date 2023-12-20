@@ -1,9 +1,8 @@
-package vn.edu.tdc.moneymanagement.model;
+package vn.edu.tdc.moneymanagement.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +23,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_expenses_item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expenses_item_layout, parent, false);
         return new ViewHolder(view);
     }
 
@@ -43,11 +42,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ListView expenseListView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            expenseListView = itemView.findViewById(vn.edu.tdc.moneymanagement.R.id.listViewExpense);
         }
     }
 }

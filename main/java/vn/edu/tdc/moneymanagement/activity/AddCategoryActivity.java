@@ -1,4 +1,4 @@
-package vn.edu.tdc.moneymanagement;
+package vn.edu.tdc.moneymanagement.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import vn.edu.tdc.moneymanagement.model.CustomAdapter;
+import vn.edu.tdc.moneymanagement.R;
+import vn.edu.tdc.moneymanagement.adapter.CustomAdapter;
 
 public class AddCategoryActivity extends AppCompatActivity {
 

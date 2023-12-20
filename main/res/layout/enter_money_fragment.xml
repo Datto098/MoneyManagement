@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:gravity="center"
             android:background="#fff"
             android:orientation="vertical"
             android:paddingHorizontal="25dp"
@@ -44,6 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/DD"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_size_big" />
 
             </LinearLayout>
@@ -60,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="@string/lbl_content"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <EditText
@@ -69,7 +73,8 @@
                     android:layout_weight="8"
                     android:autofillHints=""
                     android:hint="@string/content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -78,71 +83,87 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_outline"
-                android:hint="@string/choose_day" />
+                android:hint="@string/choose_day"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
 
         </LinearLayout>
 
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linearLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="2"-->
+<!--            android:background="#fff"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingHorizontal="25dp">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="10dp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:text="Tìm kiếm" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/btnStartDay"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="@dimen/btn_height"-->
+<!--                        android:layout_marginEnd="18dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:background="@drawable/button_outline"-->
+<!--                        android:text="@string/start_day"-->
+<!--                        android:textColor="@color/black" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/btnEndDay"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="@dimen/btn_height"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:background="@drawable/button_outline"-->
+<!--                        android:text="@string/end_day"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="@color/black" />-->
+<!--                </LinearLayout>-->
+
+<!--                <androidx.appcompat.widget.AppCompatButton-->
+<!--                    android:layout_width="167dp"-->
+<!--                    android:layout_height="@dimen/btn_height"-->
+<!--                    android:layout_marginTop="@dimen/margin_top"-->
+<!--                    android:background="@drawable/button_border"-->
+<!--                    android:text="@string/btn_find"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textColor="@color/white" />-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="#fff"
-            android:orientation="vertical"
-            android:padding="25dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                tools:ignore="UselessParent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnStartDay"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_outline"
-                        android:text="@string/start_day" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnEndDay"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/btn_height"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_outline"
-                        android:text="@string/end_day" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="167dp"
-                    android:layout_height="@dimen/btn_height"
-                    android:layout_marginTop="@dimen/margin_top"
-                    android:background="@drawable/button_border"
-                    android:text="@string/btn_find"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="2">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewMoney"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
@@ -159,32 +180,34 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/button_border"
             android:text="@string/btn_add"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             tools:ignore="NestedWeights" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpdate"
             android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/button_border"
             android:text="@string/btn_update"
+            android:textAllCaps="false"
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDelete"
             android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_border"
             android:text="@string/btn_delete"
+            android:textAllCaps="false"
             android:textColor="@color/white" />
     </LinearLayout>
 

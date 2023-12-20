@@ -1,6 +1,7 @@
-package vn.edu.tdc.moneymanagement;
+package vn.edu.tdc.moneymanagement.activity;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -10,7 +11,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.RoomDatabase;
 
+import vn.edu.tdc.moneymanagement.R;
+import vn.edu.tdc.moneymanagement.adapter.ListAdapter;
 import vn.edu.tdc.moneymanagement.fragment.AccountFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,9 +27,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.account);
 
 
         AccountFragment fragment = new AccountFragment();

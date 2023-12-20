@@ -30,4 +30,9 @@
     <string name="DD">đ</string>
     <string name="openDrawer">Open</string>
     <string name="closeDrawer">Close</string>
+    <string name="select_day">Chọn ngày</string>
+    <string name="lich_su">Lịch sử</string>
+    <string name="home">Trang chủ</string>
+    <string name="account">Tài khoản</string>
+    <string name="lblTotalMoney">Tổng tiền</string>
 </resources>

@@ -1,4 +1,4 @@
-package vn.edu.tdc.moneymanagement.model;
+package vn.edu.tdc.moneymanagement.adapter;
 
 import android.app.Activity;
 import android.view.View;

@@ -7,4 +7,5 @@
     <color name="gray">#C1C9D1</color>
     <color name="background">#E9E9E9</color>
     <color name="green">#50C474</color>
+    <color name="clicked">#CCCCCC</color>
 </resources>
