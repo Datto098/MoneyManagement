@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
@@ -20,19 +22,19 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.fragment.AddFixedAccount;
+import vn.edu.tdc.moneymanagement.fragment.EnterMoneyFragment;
 import vn.edu.tdc.moneymanagement.model.FixedAccount;
 
 
 public class ListAdapter extends RecyclerView.Adapter {
-    public static int selectedRow = -1;
     private final ArrayList<FixedAccount> items;
     private final LayoutInflater inflater;
-    private int backColor;
-    private View prev;
+    private Context context;
 
     public ListAdapter(Context context, ArrayList<FixedAccount> items) {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
+        this.context = context;
     }
 
     @NonNull
@@ -70,30 +72,11 @@ public class ListAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
 
-                FixedAccount fixed = items.get(i);
-                if (selectedRow == -1) {
-                    backColor = ((ColorDrawable) view.getBackground()).getColor();
-                    view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
-                    selectedRow = i;
-                    prev = view;
-                    setFixedAccount(fixed);
-                    AddFixedAccount.btnAdd.setEnabled(false);
-                } else {
-                    if (selectedRow == i) {
-                        view.setBackgroundColor(backColor);
-                        selectedRow = -1;
-                        clearAll();
-                        AddFixedAccount.btnAdd.setEnabled(true);
-                    } else {
-                        prev.setBackgroundColor(backColor);
-                        view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
-                        prev = view;
-                        selectedRow = i;
-                        clearAll();
-                        setFixedAccount(fixed);
-                        AddFixedAccount.btnAdd.setEnabled(false);
-                    }
-                }
+                AddFixedAccount fragment = new AddFixedAccount(fixed);
+                FragmentTransaction transaction=((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_view_tag,fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
 
             }
         });
@@ -104,26 +87,6 @@ public class ListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return items.size();
-    }
-
-    private void clearAll() {
-        AddFixedAccount.edtMoney.setText("");
-        AddFixedAccount.edtContent.setText("");
-        LocalDate date = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            date = LocalDate.now();
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AddFixedAccount.btnSelectDate.setText(date.getDayOfMonth() + "-" + date.getMonthValue() + "-" + date.getYear());
-        }
-    }
-
-    private void setFixedAccount(FixedAccount fixed) {
-        AddFixedAccount.edtMoney.setText(fixed.getMoney() + "");
-        AddFixedAccount.edtContent.setText(fixed.getContent());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AddFixedAccount.btnSelectDate.setText(fixed.getDate().getDayOfMonth() + "-" + fixed.getDate().getMonthValue() + "-" + fixed.getDate().getYear());
-        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

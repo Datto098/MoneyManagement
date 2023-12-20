@@ -1,6 +1,7 @@
 package vn.edu.tdc.moneymanagement.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AppComponentFactory;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -12,7 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
@@ -26,6 +29,7 @@ import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
 public class MoneyAdapter extends RecyclerView.Adapter {
     public static int selectedRow = -1;
+    Context context;
     private final ArrayList<TotalMoney> items;
     private final LayoutInflater inflater;
     private int backColor;
@@ -34,6 +38,7 @@ public class MoneyAdapter extends RecyclerView.Adapter {
     public MoneyAdapter(Context context, ArrayList<TotalMoney> items) {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
+        this.context=context;
     }
 
     @NonNull
@@ -72,31 +77,37 @@ public class MoneyAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
 
+                EnterMoneyFragment fragment = new EnterMoneyFragment(totalMoney);
+                FragmentTransaction transaction=((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_view_tag,fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
 
-                if (selectedRow == -1) {
-                    backColor = ((ColorDrawable) view.getBackground()).getColor();
-                    view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
-                    selectedRow = i;
-                    prev = view;
-                    setTotalMoney(totalMoney);
-                    EnterMoneyFragment.btnAdd.setEnabled(false);
-                    Log.d("select", selectedRow + "");
-                } else {
-                    if (selectedRow == i) {
-                        view.setBackgroundColor(backColor);
-                        selectedRow = -1;
-                        clearAll();
-                        EnterMoneyFragment.btnAdd.setEnabled(true);
-                    } else {
-                        prev.setBackgroundColor(backColor);
-                        view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
-                        prev = view;
-                        selectedRow = i;
-                        clearAll();
-                        setTotalMoney(totalMoney);
-                        EnterMoneyFragment.btnAdd.setEnabled(false);
-                    }
-                }
+
+//                if (selectedRow == -1) {
+//                    backColor = ((ColorDrawable) view.getBackground()).getColor();
+//                    view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
+//                    selectedRow = i;
+//                    prev = view;
+//                    setTotalMoney(totalMoney);
+//                    EnterMoneyFragment.btnAdd.setEnabled(false);
+//
+//                } else {
+//                    if (selectedRow == i) {
+//                        view.setBackgroundColor(backColor);
+//                        selectedRow = -1;
+//                        clearAll();
+//                        EnterMoneyFragment.btnAdd.setEnabled(true);
+//                    } else {
+//                        prev.setBackgroundColor(backColor);
+//                        view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.clicked));
+//                        prev = view;
+//                        selectedRow = i;
+//                        clearAll();
+//                        setTotalMoney(totalMoney);
+//                        EnterMoneyFragment.btnAdd.setEnabled(false);
+//                    }
+//                }
 
             }
         });

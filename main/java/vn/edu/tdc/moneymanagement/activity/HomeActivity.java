@@ -71,15 +71,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 if (itemID == R.id.home) {
                     Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
                     getSupportActionBar().setTitle(R.string.home);
+                    MainActivity.prevTitle = "Trang chủ";
                     HomeFragment fragment = new HomeFragment();
                     getFragment(fragment);
 
                 } else if (itemID == R.id.history) {
                     Toast.makeText(HomeActivity.this, "History", Toast.LENGTH_SHORT).show();
                     getSupportActionBar().setTitle(R.string.lich_su);
+                    MainActivity.prevTitle = "Trang chủ";
                     HistoryFragment fragment = new HistoryFragment();
                     getFragment(fragment);
                 } else if (itemID == R.id.account) {
+                    MainActivity.prevTitle = "Trang chủ";
                     Toast.makeText(HomeActivity.this, "Account", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                     startActivity(intent);

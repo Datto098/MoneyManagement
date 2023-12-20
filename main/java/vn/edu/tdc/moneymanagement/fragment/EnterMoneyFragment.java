@@ -1,6 +1,7 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,8 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
@@ -25,7 +28,7 @@ import java.util.Calendar;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.MoneyAdapter;
-import vn.edu.tdc.moneymanagement.database.MyDatabaseAPIs;
+import vn.edu.tdc.moneymanagement.database.MyDatabase;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
 public class EnterMoneyFragment extends Fragment {
@@ -33,46 +36,37 @@ public class EnterMoneyFragment extends Fragment {
     public static EditText edtMoney;
     public static EditText edtContent;
     public static AppCompatButton btnSelectDate;
-    public static AppCompatButton btnAdd;
-    public static AppCompatButton btnUpdate;
-    public static AppCompatButton btnDelete;
-    private ArrayList<TotalMoney> totalMonies;
-    private MoneyAdapter listAdapter;
     private long money;
     private String content;
     private LocalDate date;
-    private MyDatabaseAPIs databaseAPIs;
+
+    private MyDatabase myDatabase;
+
+    private TotalMoney totalMoney;
+
+    public EnterMoneyFragment(TotalMoney totalMoney){
+        this.totalMoney = totalMoney;
+    }
+
+    public EnterMoneyFragment(){
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(vn.edu.tdc.moneymanagement.R.layout.enter_money_fragment, container, false);
 
-        databaseAPIs = new MyDatabaseAPIs(getContext());
-        databaseAPIs.setCompleteListener(new MyDatabaseAPIs.CompleteListener() {
-            @Override
-            public void notifyToActivity(int notificationID) {
-                if (notificationID == MyDatabaseAPIs.SAVE_TOTAL_MONEY_DONE) {
-                    listAdapter.notifyDataSetChanged();
-                    clear();
-                } else if (notificationID == MyDatabaseAPIs.DELETE_TOTAL_MONEY_DONE) {
-                    listAdapter.notifyDataSetChanged();
-                } else if (notificationID == MyDatabaseAPIs.UPDATE_TOTAL_MONEY_DONE) {
-                    listAdapter.notifyDataSetChanged();
-                } else if (notificationID == MyDatabaseAPIs.GET_TOTAL_MONEY_DONE) {
-                    listAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-        RecyclerView expenseRecyclerView = fragment.findViewById(R.id.recyclerViewMoney);
-        totalMonies = new ArrayList<>();
+        //innit
+        myDatabase = new MyDatabase(getContext());
 
         // get input values
         edtMoney = fragment.findViewById(R.id.lblAmountMoney);
         edtContent = fragment.findViewById(R.id.lblContent);
         btnSelectDate = fragment.findViewById(R.id.lblDay);
-        btnAdd = fragment.findViewById(R.id.btnAdd);
-        btnUpdate = fragment.findViewById(R.id.btnUpdate);
-        btnDelete = fragment.findViewById(R.id.btnDelete);
+        AppCompatButton btnAdd = fragment.findViewById(R.id.btnAdd);
+        AppCompatButton btnUpdate = fragment.findViewById(R.id.btnUpdate);
+        AppCompatButton btnDelete = fragment.findViewById(R.id.btnDelete);
+
+
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -108,52 +102,52 @@ public class EnterMoneyFragment extends Fragment {
         });
 
         // Add total money
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TotalMoney totalMoney = getTotalMoney();
-                if (totalMoney.getDate() != null) {
-                    databaseAPIs.saveTotalMoney(totalMoney);
-                    totalMonies.add(totalMoney);
+        if(totalMoney != null){
+            setTotalMoney(totalMoney);
+            // Update total money
+            btnUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    myDatabase.updateTotalMoney(totalMoney);
+                    FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                    if (fragmentManager.getBackStackEntryCount() > 0) {
+                        fragmentManager.popBackStack();
+                    }
                 }
-            }
-        });
+            });
 
-        // Update total money
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("test", "click");
-                int current = MoneyAdapter.selectedRow;
-                Log.d("index", current + "");
+            // Delete total money
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myDatabase.deleteTotalMoney(totalMoney.getId());
+                    FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                    if (fragmentManager.getBackStackEntryCount() > 0) {
+                        fragmentManager.popBackStack();
+                    }
+                }
+            });
 
-                if (current != -1) {
+            btnAdd.setVisibility(View.GONE);
+        }
+        else{
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     TotalMoney totalMoney = getTotalMoney();
-                    Log.d("test", totalMoney.toString());
-                    totalMoney.setId(totalMonies.get(current).getId());
-                    databaseAPIs.updateTotalMoney(totalMoney);
-                    totalMonies.set(current, totalMoney);
+                    if (totalMoney.getDate() != null) {
+                        myDatabase.addTotalMoney(totalMoney);
+                        FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                            fragmentManager.popBackStack();
+                        }
+                    }
                 }
-            }
-        });
+            });
+            btnUpdate.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
+        }
 
-        // Delete total money
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MoneyAdapter.selectedRow != -1) {
-                    TotalMoney totalMoney = totalMonies.get(MoneyAdapter.selectedRow);
-                    databaseAPIs.deleteTotalMoney(totalMoney);
-                    Log.d("test", totalMoney.toString());
-                    totalMonies.remove(MoneyAdapter.selectedRow);
-                    clear();
-                }
-            }
-        });
-        databaseAPIs.getAllTotalMoney(totalMonies);
-
-        listAdapter = new MoneyAdapter(getContext(), totalMonies);
-        expenseRecyclerView.setAdapter(listAdapter);
 
         return fragment;
     }
@@ -195,6 +189,14 @@ public class EnterMoneyFragment extends Fragment {
 
         }
         return totalMoney;
+    }
+
+    private void setTotalMoney(TotalMoney totalMoney) {
+        EnterMoneyFragment.edtMoney.setText(totalMoney.getMoney() + "");
+        EnterMoneyFragment.edtContent.setText(totalMoney.getContent());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            EnterMoneyFragment.btnSelectDate.setText(totalMoney.getDate().getDayOfMonth() + "-" + totalMoney.getDate().getMonthValue() + "-" + totalMoney.getDate().getYear());
+        }
     }
 
     private void clear() {

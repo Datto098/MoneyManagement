@@ -113,8 +113,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_border"
             android:text="@string/btn_add"
@@ -124,7 +124,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpdate"
             android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
@@ -136,7 +136,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDelete"
             android:layout_width="0dp"
-            android:layout_height="@dimen/btn_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_border"
             android:text="@string/btn_delete"

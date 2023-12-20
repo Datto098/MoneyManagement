@@ -8,31 +8,25 @@ import androidx.room.TypeConverter;
 
 import java.time.LocalDate;
 
-@Entity(tableName = FixedAccount.TABLE_NAME)
 public class FixedAccount {
 
-    //Dinh nghia thuoc tinh cua bang
-    @Ignore
     public final static String TABLE_NAME = "fixed_accounts";
-    @Ignore
     public final static String ID = "_id";
-    @Ignore
     public final static String MONEY = "money";
-    @Ignore
     public final static String CONTENT = "content";
-    @Ignore
     public final static String DATE = "date";
 
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = ID)
     private int id;
-    @ColumnInfo(name = MONEY)
     private long money;
-    @ColumnInfo(name = CONTENT)
     private String content;
-    @ColumnInfo(name = DATE)
     private LocalDate date;
+
+    public FixedAccount(int id, long money, String content, LocalDate date) {
+        this.id = id;
+        this.money = money;
+        this.content = content;
+        this.date = date;
+    }
 
     public FixedAccount() {
 
@@ -78,22 +72,22 @@ public class FixedAccount {
                 " # " + date;
     }
 
-    // Thêm lớp TypeConverter
-    public static class Converters {
-        @TypeConverter
-        public static String dateToString(LocalDate date) {
-            String result = date == null ? null : date.toString();
-//            Log.d("test", "dateToString: " + result);
-            return result;
-        }
-
-        @TypeConverter
-        public static LocalDate stringToDate(String dateString) {
-            LocalDate result = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                result = dateString == null ? null : LocalDate.parse(dateString);
-            }
-            return result;
-        }
-    }
+//    // Thêm lớp TypeConverter
+//    public static class Converters {
+//        @TypeConverter
+//        public static String dateToString(LocalDate date) {
+//            String result = date == null ? null : date.toString();
+////            Log.d("test", "dateToString: " + result);
+//            return result;
+//        }
+//
+//        @TypeConverter
+//        public static LocalDate stringToDate(String dateString) {
+//            LocalDate result = null;
+//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                result = dateString == null ? null : LocalDate.parse(dateString);
+//            }
+//            return result;
+//        }
+//    }
 }

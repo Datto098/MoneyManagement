@@ -11,30 +11,27 @@ import java.time.LocalDate;
 public class TotalMoney {
 
     //Dinh nghia thuoc tinh cua bang
-    @Ignore
     public final static String TABLE_NAME = "total_money";
-    @Ignore
     public final static String ID = "_id";
-    @Ignore
     public final static String MONEY = "money";
-    @Ignore
     public final static String CONTENT = "content";
-    @Ignore
     public final static String DATE = "date";
 
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = ID)
     private int id;
-    @ColumnInfo(name = MONEY)
     private long money;
-    @ColumnInfo(name = CONTENT)
     private String content;
-    @ColumnInfo(name = DATE)
     private LocalDate date;
 
     public TotalMoney() {
 
+    }
+
+    public TotalMoney(int id, long money, String content, LocalDate date) {
+        this.id = id;
+        this.money = money;
+        this.content = content;
+        this.date = date;
     }
 
     public int getId() {
