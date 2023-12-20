@@ -53,12 +53,13 @@ public class FixedAccountFragment extends Fragment {
         AppCompatButton btnFindItem = fragment.findViewById(R.id.btnFindItem);
         TextView fixedMoney = fragment.findViewById(R.id.fixedMoney);
 
+        AppCompatButton btnCancel = fragment.findViewById(R.id.btnCancel);
+
         fixedMoney.setText(AccountFragment.formatNumber(myDatabase.getTotalFixedAccountForCurrentMonth()) + "");
 
         fixedAccounts = myDatabase.getAllFixedAccount();
         adapter = new ListAdapter(getContext(), fixedAccounts);
         recyclerView.setAdapter(adapter);
-
         adapter.notifyDataSetChanged();
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -81,15 +82,31 @@ public class FixedAccountFragment extends Fragment {
             public void onClick(View view) {
                 LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
                 LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
-                ArrayList<FixedAccount> fs = myDatabase.getFixedAccountsInDateRange(startDay, endDay);
-                for (FixedAccount fixedAccount : fs) {
-                    Log.d("test", fixedAccount.toString());
-                }
+
+
+                btnAdd.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.VISIBLE);
+                fixedAccounts.clear();
+                ArrayList<FixedAccount> newData = myDatabase.getFixedAccountsInDateRange(startDay, endDay);
+                fixedAccounts.addAll(newData);
+
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnCancel.setVisibility(View.GONE);
+                btnAdd.setVisibility(View.VISIBLE);
+                fixedAccounts.clear();
+                ArrayList<FixedAccount> newData = myDatabase.getAllFixedAccount();
+                fixedAccounts.addAll(newData);
+                adapter.notifyDataSetChanged();
             }
         });
 
         Util.getStartDayAndEndDay(fragment, btnStartDay, btnEndDay);
-
         return fragment;
     }
 }

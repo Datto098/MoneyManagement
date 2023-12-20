@@ -59,7 +59,7 @@
             android:background="#fff"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="25dp">
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -136,6 +136,15 @@
             android:text="@string/btn_add"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:text="Huy"/>
 
     </LinearLayout>
 </LinearLayout>

@@ -32,9 +32,6 @@
         app:headerLayout="@layout/header_layout"
         app:menu="@menu/main_menu"
         >
-
-
-
     </com.google.android.material.navigation.NavigationView>
 
     <!-- End slide menu-->

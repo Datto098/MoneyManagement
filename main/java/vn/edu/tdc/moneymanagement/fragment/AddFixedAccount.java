@@ -104,11 +104,15 @@ public class AddFixedAccount extends Fragment {
 
         if (fixedAccount != null) {
             setFixedAccount(fixedAccount);
+
             btnUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int check = myDatabase.updateFixedAccount(fixedAccount);
-                    if (check != 0 && check != -1) {
+                    FixedAccount newFixedAccount = getFixedAccount();
+                    newFixedAccount.setId(fixedAccount.getId());
+                    int check = myDatabase.updateFixedAccount(newFixedAccount);
+
+                    if (check > 0) {
                         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                         if (fragmentManager.getBackStackEntryCount() > 0) {
                             fragmentManager.popBackStack();
@@ -117,11 +121,13 @@ public class AddFixedAccount extends Fragment {
                 }
             });
 
+
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int check = myDatabase.deleteFixedAccount(fixedAccount.getId());
-                    if (check != 0 && check != -1) {
+
+                    if (check > 0) {
                         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                         if (fragmentManager.getBackStackEntryCount() > 0) {
                             fragmentManager.popBackStack();
