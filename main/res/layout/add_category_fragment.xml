@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary"
-        app:title="Title"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="25dp"
-        android:orientation="horizontal"
         android:layout_marginBottom="50dp"
+        android:background="@color/white"
         android:gravity="center"
-        android:background="@color/white">
+        android:orientation="horizontal"
+        android:padding="25dp">
+
         <ImageView
             android:id="@+id/iconMain"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/home"
-            />
+            android:src="@drawable/home" />
+
         <EditText
             android:id="@+id/edtNameCategory"
             android:layout_width="match_parent"
@@ -39,39 +28,39 @@
             android:drawablePadding="20dp"
             android:hint="Tên hạng mục"
             android:textColorHint="@color/gray"
-            android:textSize="22dp"/>
+            android:textSize="22dp" />
     </LinearLayout>
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="25dp"
-        android:background="@color/white"
         android:layout_weight="4"
-        android:orientation="vertical">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="25dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textStyle="bold"
-            android:text="Chon icon cho danh muc"/>
+            android:text="Chon icon cho danh muc"
+            android:textStyle="bold" />
+
         <GridView
             android:id="@+id/gridIcons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="4"
-            >
-        </GridView>
+            android:numColumns="4"></GridView>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:layout_margin="25dp"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
@@ -80,10 +69,34 @@
             android:background="@drawable/button_border"
             android:drawableTint="@color/white"
             android:gravity="center"
-            android:text="Save"
+            android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_big" />
+            android:textSize="@dimen/text_size_normal" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:text="@string/btn_update"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:text="@string/btn_delete"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal" />
 
     </LinearLayout>
 

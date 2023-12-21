@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -14,7 +13,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import vn.edu.tdc.moneymanagement.model.Category;
 import vn.edu.tdc.moneymanagement.model.FixedAccount;
+import vn.edu.tdc.moneymanagement.model.SpendingAccount;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
 public class MyDatabase extends SQLiteOpenHelper {
@@ -52,6 +53,24 @@ public class MyDatabase extends SQLiteOpenHelper {
                     TotalMoney.DATE + " TEXT);";
 
             sqLiteDatabase.execSQL(sqlTotalMoney);
+
+            //Tao bang category
+            String sqlCategory = "CREATE TABLE " + Category.TABLE_NAME + " ( " +
+                    Category.ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    Category.ICON + " INTEGER," +
+                    Category.CONTENT + " TEXT);";
+
+            sqLiteDatabase.execSQL(sqlCategory);
+
+
+            //Tao bang spending account
+            String sqlSpending = "CREATE TABLE " + SpendingAccount.TABLE_NAME + " ( " +
+                    SpendingAccount.ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    SpendingAccount.MONEY + " INTEGER," +
+                    SpendingAccount.CATEGORY_ID + " INTEGER," +
+                    SpendingAccount.DATE + " TEXT);";
+
+            sqLiteDatabase.execSQL(sqlSpending);
         }
     }
 
@@ -77,7 +96,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<FixedAccount> fixedAccounts = new ArrayList<FixedAccount>();
         if (db != null) {
-            Cursor cursor = db.rawQuery("SELECT * FROM " + FixedAccount.TABLE_NAME, null);
+            Cursor cursor = db.rawQuery("SELECT * FROM " + FixedAccount.TABLE_NAME + " ORDER BY " + FixedAccount.DATE + " DESC", null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     int iId = cursor.getColumnIndex(FixedAccount.ID);
@@ -243,11 +262,11 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
     //Lay tat ca du lieu tu bang total_count
-    public ArrayList<TotalMoney> getAllTotalMoney(){
+    public ArrayList<TotalMoney> getAllTotalMoney() {
         SQLiteDatabase db = getWritableDatabase();
-        ArrayList<TotalMoney> fixedAccounts = new ArrayList<TotalMoney>();
+        ArrayList<TotalMoney> totalMonies = new ArrayList<TotalMoney>();
         if (db != null) {
-            Cursor cursor = db.rawQuery("SELECT * FROM " + TotalMoney.TABLE_NAME, null);
+            Cursor cursor = db.rawQuery("SELECT * FROM " + TotalMoney.TABLE_NAME + " ORDER BY " + TotalMoney.DATE + " DESC", null);
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     int iId = cursor.getColumnIndex(TotalMoney.ID);
@@ -261,14 +280,14 @@ public class MyDatabase extends SQLiteOpenHelper {
                     String dateString = cursor.getString(iDate);
                     LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ISO_DATE);
                     TotalMoney totalMoney = new TotalMoney(id, money, content, date);
-                    fixedAccounts.add(totalMoney);
+                    totalMonies.add(totalMoney);
 
                 } while (cursor.moveToNext());
 
                 cursor.close();
             }
         }
-        return fixedAccounts;
+        return totalMonies;
     }
 
     //Ham lay tong tien cua thang hiẹn
@@ -293,6 +312,210 @@ public class MyDatabase extends SQLiteOpenHelper {
 
         return totalMoney;
     }
+
+
+    /*--------------------Category------------------*/
+
+    //Ham them category vao bang category
+    public long addCategory(Category category) {
+        SQLiteDatabase db = getWritableDatabase();
+        long result = 0;
+        if (db != null) {
+            ContentValues values = new ContentValues();
+            values.put(Category.ICON, category.getIcon());
+            values.put(Category.CONTENT, category.getContent());
+
+            result = db.insert(Category.TABLE_NAME, null, values);
+        }
+        return result;
+    }
+
+    //Ham sua category
+    public int updateCategory(Category category) {
+        SQLiteDatabase db = getWritableDatabase();
+        int affectedRows = 0;
+        if (db != null) {
+            ContentValues values = new ContentValues();
+            values.put(Category.ICON, category.getIcon());
+            values.put(Category.CONTENT, category.getContent());
+
+            affectedRows = db.update(
+                    Category.TABLE_NAME,
+                    values,
+                    Category.ID + " = ?",
+                    new String[]{String.valueOf(category.getId())}
+            );
+        }
+        return affectedRows;
+    }
+
+    // Hàm xóa cho bảng  category
+    public int deleteCategory(int accountId) {
+        SQLiteDatabase db = getWritableDatabase();
+        int affectedRows = 0;
+        if (db != null) {
+            affectedRows = db.delete(Category.TABLE_NAME, Category.ID + " = ?", new String[]{String.valueOf(accountId)});
+        }
+        return affectedRows;
+    }
+
+    //Lay tat ca du lieu tu bang category
+    public ArrayList<Category> getAllCategory() {
+        SQLiteDatabase db = getWritableDatabase();
+        ArrayList<Category> categories = new ArrayList<Category>();
+        if (db != null) {
+            Cursor cursor = db.rawQuery("SELECT * FROM " + Category.TABLE_NAME, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int iId = cursor.getColumnIndex(Category.ID);
+                    int iICon = cursor.getColumnIndex(Category.ICON);
+                    int iContent = cursor.getColumnIndex(Category.CONTENT);
+
+                    int id = cursor.getInt(iId);
+                    long icon = cursor.getLong(iICon);
+                    String content = cursor.getString(iContent);
+                    Category category = new Category(id, icon, content);
+                    categories.add(category);
+
+                } while (cursor.moveToNext());
+
+                cursor.close();
+            }
+        }
+        return categories;
+    }
+
+
+    /*--------------------Spending account------------------*/
+    //Ham them cho bang total_money
+    public long addSpendingAccount(SpendingAccount spendingAccount) {
+        SQLiteDatabase db = getWritableDatabase();
+        long result = 0;
+        if (db != null) {
+            ContentValues values = new ContentValues();
+            values.put(SpendingAccount.MONEY, spendingAccount.getMoney());
+            values.put(SpendingAccount.CATEGORY_ID, spendingAccount.getCategory().getId());
+            values.put(SpendingAccount.DATE, spendingAccount.getDate().format(DateTimeFormatter.ISO_DATE));
+
+            result = db.insert(SpendingAccount.TABLE_NAME, null, values);
+        }
+        return result;
+    }
+
+    // Hàm update cho bang total_count
+    public int updateSpendingAccount(SpendingAccount spendingAccount) {
+        SQLiteDatabase db = getWritableDatabase();
+        int affectedRows = 0;
+        if (db != null) {
+            ContentValues values = new ContentValues();
+            values.put(SpendingAccount.MONEY, spendingAccount.getMoney());
+            values.put(SpendingAccount.CATEGORY_ID, spendingAccount.getCategory().getId());
+            values.put(SpendingAccount.DATE, spendingAccount.getDate().format(DateTimeFormatter.ISO_DATE));
+
+            affectedRows = db.update(
+                    SpendingAccount.TABLE_NAME,
+                    values,
+                    SpendingAccount.ID + " = ?",
+                    new String[]{String.valueOf(spendingAccount.getId())}
+            );
+        }
+        return affectedRows;
+    }
+
+    // Hàm xóa cho bảng total_count
+    public int deleteSpendingAccount(int accountId) {
+        SQLiteDatabase db = getWritableDatabase();
+        int affectedRows = 0;
+        if (db != null) {
+            affectedRows = db.delete(SpendingAccount.TABLE_NAME, SpendingAccount.ID + " = ?", new String[]{String.valueOf(accountId)});
+        }
+        return affectedRows;
+    }
+
+    //Lay tat ca du lieu tu bang spending account
+    public ArrayList<SpendingAccount> getAllSpendingAccounts() {
+        SQLiteDatabase db = getWritableDatabase();
+        ArrayList<SpendingAccount> spendingAccounts = new ArrayList<>();
+
+        if (db != null) {
+            String query = "SELECT spending_accounts._id, spending_accounts.money, spending_accounts.category_id, spending_accounts.date, " +
+                    "categories.icon, categories.content " +
+                    "FROM spending_accounts " +
+                    "INNER JOIN categories ON spending_accounts.category_id = categories._id" + " ORDER BY " + SpendingAccount.DATE + " DESC";
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int iId = cursor.getColumnIndex(SpendingAccount.ID);
+                    int iMoney = cursor.getColumnIndex(SpendingAccount.MONEY);
+                    int iCategoryId = cursor.getColumnIndex(SpendingAccount.CATEGORY_ID);
+                    int iDate = cursor.getColumnIndex(SpendingAccount.DATE);
+                    int iIcon = cursor.getColumnIndex(Category.ICON);
+                    int iContent = cursor.getColumnIndex(Category.CONTENT);
+
+                    int id = cursor.getInt(iId);
+                    long money = cursor.getLong(iMoney);
+                    int categoryId = cursor.getInt(iCategoryId);
+                    LocalDate date = LocalDate.parse(cursor.getString(iDate), DateTimeFormatter.ISO_DATE);
+                    long icon = cursor.getLong(iIcon);
+                    String content = cursor.getString(iContent);
+
+                    Category category = new Category(categoryId, icon, content);
+                    SpendingAccount spendingAccount = new SpendingAccount(id, money, category, date);
+                    spendingAccounts.add(spendingAccount);
+                } while (cursor.moveToNext());
+
+                cursor.close();
+            }
+        }
+        return spendingAccounts;
+    }
+
+    //Ham tim ghi chi từ ngày.... đến ngày
+    public ArrayList<SpendingAccount> getSpendingAccountsInDateRange(LocalDate startDate, LocalDate endDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ArrayList<SpendingAccount> spendingAccounts = new ArrayList<>();
+
+        if (db != null) {
+            String query = "SELECT spending_accounts._id, spending_accounts.money, spending_accounts.category_id, spending_accounts.date, " +
+                    "categories.icon, categories.content " +
+                    "FROM spending_accounts " +
+                    "INNER JOIN categories ON spending_accounts.category_id = categories._id " +
+                    "WHERE " + SpendingAccount.DATE + " BETWEEN ? AND ?";
+            String[] selectionArgs = {
+                    startDate.format(DateTimeFormatter.ISO_DATE), endDate.format(DateTimeFormatter.ISO_DATE)
+            };
+
+            Cursor cursor = db.rawQuery(query, selectionArgs);
+
+            while (cursor != null && cursor.moveToNext()) {
+                int iId = cursor.getColumnIndex(SpendingAccount.ID);
+                int iMoney = cursor.getColumnIndex(SpendingAccount.MONEY);
+                int iCategoryId = cursor.getColumnIndex(SpendingAccount.CATEGORY_ID);
+                int iDate = cursor.getColumnIndex(SpendingAccount.DATE);
+                int iIcon = cursor.getColumnIndex(Category.ICON);
+                int iContent = cursor.getColumnIndex(Category.CONTENT);
+
+                int id = cursor.getInt(iId);
+                long money = cursor.getLong(iMoney);
+                int categoryId = cursor.getInt(iCategoryId);
+                LocalDate date = LocalDate.parse(cursor.getString(iDate), DateTimeFormatter.ISO_DATE);
+                long icon = cursor.getLong(iIcon);
+                String content = cursor.getString(iContent);
+
+                Category category = new Category(categoryId, icon, content);
+                SpendingAccount spendingAccount = new SpendingAccount(id, money, category, date);
+                spendingAccounts.add(spendingAccount);
+            }
+
+            cursor.close();
+
+        }
+
+        return spendingAccounts;
+    }
+
 
     //Ham tim ghi chi từ ngày.... đến ngày
     public ArrayList<TotalMoney> getTotalMoneyInDateRange(LocalDate startDate, LocalDate endDate) {
@@ -328,6 +551,138 @@ public class MyDatabase extends SQLiteOpenHelper {
         }
 
         return totalMonies;
+    }
+
+    //Ham lay tong tien cua thang hiẹn
+    public long getTotalSpendingMoneyForCurrentMonth() {
+        SQLiteDatabase db = getWritableDatabase();
+        long totalMoney = 0;
+
+        if (db != null) {
+            Cursor cursor = db.rawQuery(
+                    "SELECT SUM(" + SpendingAccount.MONEY + ") AS totalMoney " +
+                            "FROM " + SpendingAccount.TABLE_NAME + " " +
+                            "WHERE SUBSTR(" + SpendingAccount.DATE + ", 1, 7) = strftime('%Y-%m', 'now')",
+                    null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int total = cursor.getColumnIndex("totalMoney");
+                totalMoney = cursor.getLong(total);
+                cursor.close();
+            }
+        }
+
+        return totalMoney;
+    }
+
+
+    //Ham lay tong tien trong 1 ngày
+    public long getTotalSpendingForDay(LocalDate date) {
+        SQLiteDatabase db = getReadableDatabase();
+        long totalSpending = 0;
+
+        if (db != null) {
+            String formattedDate = date.format(DateTimeFormatter.ISO_DATE);
+            String query = "SELECT SUM(" + SpendingAccount.MONEY + ") FROM " +
+                    SpendingAccount.TABLE_NAME +
+                    " WHERE " + SpendingAccount.DATE + " = ?";
+
+            Cursor cursor = db.rawQuery(query, new String[]{formattedDate});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                totalSpending = cursor.getLong(0);
+                cursor.close();
+            }
+        }
+
+        return totalSpending;
+    }
+
+    /*--------------------Get data form previous month------------------*/
+
+    public long getBalanceForPreviousMonth() {
+        SQLiteDatabase db = getWritableDatabase();
+        long totalBalance = 0;
+
+        if (db != null) {
+            // Calculate totalMoney for the previous month
+            long totalMoney = getTotalMoneyForPreviousMonth(db);
+
+            // Calculate totalFixedAccount for the previous month
+            long totalFixedAccount = getTotalFixedAccountForPreviousMonth(db);
+
+            // Calculate totalSpendingAccount for the previous month
+            long totalSpendingAccount = getTotalSpendingAccountForPreviousMonth(db);
+
+            // Calculate the balance
+            totalBalance = totalMoney - totalFixedAccount - totalSpendingAccount;
+        }
+
+        return totalBalance;
+    }
+
+    private long getTotalMoneyForPreviousMonth(SQLiteDatabase db) {
+        long totalMoney = 0;
+
+        if (db != null) {
+            Cursor cursor = db.rawQuery(
+                    "SELECT SUM(" + TotalMoney.MONEY + ") AS totalMoney " +
+                            "FROM " + TotalMoney.TABLE_NAME + " " +
+                            "WHERE SUBSTR(" + TotalMoney.DATE + ", 1, 7) = strftime('%Y-%m', 'now', '-1 month')",
+                    null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int totalMoneyIndex = cursor.getColumnIndex("totalMoney");
+                totalMoney = cursor.getLong(totalMoneyIndex);
+                cursor.close();
+            }
+        }
+
+        return totalMoney;
+    }
+
+    private long getTotalFixedAccountForPreviousMonth(SQLiteDatabase db) {
+        long totalFixedAccount = 0;
+
+        if (db != null) {
+            Cursor cursor = db.rawQuery(
+                    "SELECT SUM(" + FixedAccount.MONEY + ") AS totalFixedAccount " +
+                            "FROM " + FixedAccount.TABLE_NAME + " " +
+                            "WHERE SUBSTR(" + FixedAccount.DATE + ", 1, 7) = strftime('%Y-%m', 'now', '-1 month')",
+                    null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int totalFixedAccountIndex = cursor.getColumnIndex("totalFixedAccount");
+                totalFixedAccount = cursor.getLong(totalFixedAccountIndex);
+                cursor.close();
+            }
+        }
+
+        return totalFixedAccount;
+    }
+
+    private long getTotalSpendingAccountForPreviousMonth(SQLiteDatabase db) {
+        long totalSpendingAccount = 0;
+
+        if (db != null) {
+            Cursor cursor = db.rawQuery(
+                    "SELECT SUM(" + SpendingAccount.MONEY + ") AS totalSpendingAccount " +
+                            "FROM " + SpendingAccount.TABLE_NAME + " " +
+                            "WHERE SUBSTR(" + SpendingAccount.DATE + ", 1, 7) = strftime('%Y-%m', 'now', '-1 month')",
+                    null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int totalSpendingAccountIndex = cursor.getColumnIndex("totalSpendingAccount");
+                totalSpendingAccount = cursor.getLong(totalSpendingAccountIndex);
+                cursor.close();
+            }
+        }
+
+        return totalSpendingAccount;
     }
 
 

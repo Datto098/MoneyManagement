@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoneyManagement</string>
+    <string name="app_name">ExpendEase</string>
     <string name="cac_khoan_chi">Cac khoan chi:</string>
     <string name="total_fixes">1.500.500</string>
     <string name="unit_money">đ</string>
@@ -18,7 +18,7 @@
     <string name="breakfast">breakfast</string>
     <string name="total_expense">Tổng Chi:</string>
     <string name="_100_000">100.000</string>
-    <string name="balance">số dư hiện tại:</string>
+    <string name="balance">Số dư hiện tại:</string>
     <string name="_1_000_000">100.000.000</string>
     <string name="find_expenses_by_date">Tìm kiếm chi tiêu theo ngày</string>
     <string name="_28">28</string>
@@ -50,4 +50,11 @@
     <string name="note">Với số tiền này bạn có thể thể sử dụng thêm ... ngày</string>
     <string name="ti_n_i_n">power_money</string>
     <string name="food">Ăn Uống</string>
+    <string name="notify">Bạn đã sử dụng quá mức cho phép</string>
+    <string name="notify_ok">Trong mức cho phép</string>
+    <string name="prev_money">Số dư tháng trước:</string>
+    <string name="find">Tìm kiếm</string>
+    <string name="cancel">Hủy</string>
+    <string name="btn_cancel">Hủy</string>
+    <string name="save">Lưu</string>
 </resources>

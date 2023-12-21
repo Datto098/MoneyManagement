@@ -1,7 +1,6 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,17 +79,21 @@ public class FixedAccountFragment extends Fragment {
         btnFindItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
-                LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
+
+                if (Util.isValidDateFormat(btnStartDay.getText().toString()) && Util.isValidDateFormat(btnEndDay.getText().toString())) {
+                    LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
+                    LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
 
 
-                btnAdd.setVisibility(View.GONE);
-                btnCancel.setVisibility(View.VISIBLE);
-                fixedAccounts.clear();
-                ArrayList<FixedAccount> newData = myDatabase.getFixedAccountsInDateRange(startDay, endDay);
-                fixedAccounts.addAll(newData);
+                    btnAdd.setVisibility(View.GONE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                    fixedAccounts.clear();
+                    ArrayList<FixedAccount> newData = myDatabase.getFixedAccountsInDateRange(startDay, endDay);
+                    fixedAccounts.addAll(newData);
 
-                adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
+                }
+
             }
         });
 

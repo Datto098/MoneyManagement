@@ -1,9 +1,7 @@
 package vn.edu.tdc.moneymanagement.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.AppComponentFactory;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,17 +25,15 @@ import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
 
 public class MoneyAdapter extends RecyclerView.Adapter {
-    public static int selectedRow = -1;
-    Context context;
+
     private final ArrayList<TotalMoney> items;
     private final LayoutInflater inflater;
-    private int backColor;
-    private View prev;
+    Context context;
 
     public MoneyAdapter(Context context, ArrayList<TotalMoney> items) {
         this.inflater = LayoutInflater.from(context);
         this.items = items;
-        this.context=context;
+        this.context = context;
     }
 
     @NonNull
@@ -78,8 +73,8 @@ public class MoneyAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
 
                 EnterMoneyFragment fragment = new EnterMoneyFragment(totalMoney);
-                FragmentTransaction transaction=((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_view_tag,fragment);
+                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_view_tag, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
 

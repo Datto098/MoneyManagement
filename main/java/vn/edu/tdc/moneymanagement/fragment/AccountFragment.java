@@ -41,9 +41,6 @@ public class AccountFragment extends Fragment {
         LinearLayout fixedAmount = fragment.findViewById(R.id.fixed_amount);
         LinearLayout spendingAmount = fragment.findViewById(R.id.spending_amount);
 
-        AccountFragment.currentTitle = fragment.getResources().getString(R.string.account);
-        AccountFragment.prevTitle = fragment.getResources().getString(R.string.home_page);
-
         //innit
         myDatabase = new MyDatabase(getContext());
 
@@ -115,13 +112,13 @@ public class AccountFragment extends Fragment {
         spendingAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SpendingFragment fragment3 = new SpendingFragment();
+                ExpensesFragment fragment3 = new ExpensesFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container_view_tag, fragment3);
                 transaction.addToBackStack("fragment_spending");
                 // Đặt lại tiêu đề của Toolbar trong Activity
                 if (getActivity() != null) {
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(SpendingFragment.currentTitle);
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(ExpensesFragment.currentTitle);
                 }
                 transaction.commit();
             }

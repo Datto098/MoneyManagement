@@ -1,67 +1,268 @@
 package vn.edu.tdc.moneymanagement.fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 import vn.edu.tdc.moneymanagement.R;
-import vn.edu.tdc.moneymanagement.adapter.SpinnerItemAdapter;
+import vn.edu.tdc.moneymanagement.adapter.CategoryAdapter;
+import vn.edu.tdc.moneymanagement.database.MyDatabase;
+import vn.edu.tdc.moneymanagement.model.Category;
+import vn.edu.tdc.moneymanagement.model.SpendingAccount;
+import vn.edu.tdc.moneymanagement.model.Util;
 
-public class AddSpendingFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AddSpendingFragment extends Fragment {
 
     public static String prevTitle = "Các khoản chi tiêu";
     public static String currentTitle = "Thêm khoản chi mới";
-    private ArrayList<String> categories;
-    private ArrayList<Integer> icons;
+    private static EditText edtMoney;
+    private Category category;
+    private AppCompatButton btnSelectDate;
+    private SpendingAccount spendingAccount;
+    private MyDatabase myDatabase;
+    private AppCompatButton btnCategory;
+    private TextView lblContent;
+    private ImageView imageCategory;
 
+    public AddSpendingFragment() {
+    }
+
+    public AddSpendingFragment(SpendingAccount spendingAccount) {
+        this.spendingAccount = spendingAccount;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.add_expense_fragment, container, false);
 
-        categories = new ArrayList<String>();
-        icons = new ArrayList<Integer>();
+        //init database
+        myDatabase = new MyDatabase(getContext());
+
+        //Get button from layout
+        btnCategory = fragment.findViewById(R.id.btnCategory);
+        AppCompatButton btnSave = fragment.findViewById(R.id.btnSave);
+        AppCompatButton btnUpdate = fragment.findViewById(R.id.btnUpdate);
+        AppCompatButton btnDelete = fragment.findViewById(R.id.btnDelete);
+        btnSelectDate = fragment.findViewById(R.id.btnSelectDay);
+        lblContent = fragment.findViewById(R.id.lblContent);
+        imageCategory = fragment.findViewById(R.id.imageIcon);
+        LinearLayout itemCategory = fragment.findViewById(R.id.itemCategory);
+        View viewLine = fragment.findViewById(R.id.viewLine);
+        edtMoney = fragment.findViewById(R.id.edtMoney);
 
 
-        //Add select category
-        categories.add("Ăn uống");
-        categories.add("Cafe");
-        categories.add("Du lịch");
+        itemCategory.setVisibility(View.GONE);
+        viewLine.setVisibility(View.GONE);
 
-        icons.add(R.drawable.healthy_eating);
-        icons.add(R.drawable.coffee_cup);
-        icons.add(R.drawable.travel);
+        LocalDate date = LocalDate.now();
+        btnSelectDate.setText(date.getDayOfMonth() + "-" + date.getMonthValue() + "-" + date.getYear());
 
-        //Get spinner from layout
-        Spinner spinner = fragment.findViewById(R.id.spinnerCategory);
+        if (CategoryAdapter.category != null) {
+            category = CategoryAdapter.category;
+        }
 
-        spinner.setOnItemSelectedListener(this);
+        if (category != null) {
+            btnCategory.setVisibility(View.GONE);
+            itemCategory.setVisibility(View.VISIBLE);
+            viewLine.setVisibility(View.VISIBLE);
+            lblContent.setText(category.getContent());
+            imageCategory.setImageResource((int) category.getIcon());
 
-        SpinnerItemAdapter adapter = new SpinnerItemAdapter(getContext(), categories, icons);
-        spinner.setAdapter(adapter);
+            itemCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CategoryListFragment fragment = new CategoryListFragment();
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container_view_tag, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                }
+            });
+
+        }
+
+        btnCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CategoryListFragment fragment = new CategoryListFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_view_tag, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        btnSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        fragment.getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                                // Tăng giá trị của selectedMonth vì tháng trong DatePicker được đánh số từ 0 đến 11
+                                selectedMonth = selectedMonth + 1;
+
+                                // Kiểm tra và thêm số 0 khi cần thiết
+                                String dayString = (selectedDay < 10) ? "0" + selectedDay : String.valueOf(selectedDay);
+                                String monthString = (selectedMonth < 10) ? "0" + selectedMonth : String.valueOf(selectedMonth);
+
+                                // Tạo chuỗi ngày tháng năm
+                                String selectedDate = dayString + "-" + monthString + "-" + selectedYear;
+
+                                // Hiển thị ngày đã chọn trên nút hoặc nơi bạn muốn
+                                btnSelectDate.setText(selectedDate);
+                            }
+
+                        },
+                        year, month, day
+                );
+
+                // DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
 
 
+        if (spendingAccount != null) {
+            setSpendingAccount(spendingAccount);
+            btnCategory.setVisibility(View.GONE);
+            itemCategory.setVisibility(View.VISIBLE);
+            viewLine.setVisibility(View.VISIBLE);
+            if (category != null) {
+                lblContent.setText(category.getContent());
+                imageCategory.setImageResource((int) category.getIcon());
+            } else {
+                itemCategory.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        CategoryListFragment fragment = new CategoryListFragment();
+                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_container_view_tag, fragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+                    }
+                });
+
+            }
+
+
+            btnUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SpendingAccount spendingAccount1 = getSpendingAccount();
+                    spendingAccount1.setId(spendingAccount.getId());
+                    int check = myDatabase.updateSpendingAccount(spendingAccount1);
+                    if (check > 0) {
+                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                            fragmentManager.popBackStack();
+                        }
+                    }
+                }
+            });
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int check = myDatabase.deleteSpendingAccount(spendingAccount.getId());
+                    if (check > 0) {
+                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                            fragmentManager.popBackStack();
+                        }
+                    }
+                }
+            });
+
+            btnDelete.setVisibility(View.VISIBLE);
+            btnUpdate.setVisibility(View.VISIBLE);
+            btnSave.setVisibility(View.GONE);
+        } else {
+
+            btnSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CategoryAdapter.category = null;
+                    SpendingAccount spendingAccount1 = getSpendingAccount();
+                    long check = myDatabase.addSpendingAccount(spendingAccount1);
+                    if (check > 0) {
+                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        if (fragmentManager.getBackStackEntryCount() > 0) {
+                            fragmentManager.popBackStack();
+                        }
+                    }
+                }
+            });
+            btnDelete.setVisibility(View.GONE);
+            btnUpdate.setVisibility(View.GONE);
+
+
+        }
         return fragment;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getContext(), categories.get(i), Toast.LENGTH_SHORT).show();
+    private SpendingAccount getSpendingAccount() {
+        SpendingAccount spendingAccountDt = new SpendingAccount();
+        long money = 0;
+        LocalDate date = LocalDate.now();
+
+        if (TextUtils.isEmpty(edtMoney.getText())) {
+            edtMoney.requestFocus();
+            Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
+        } else if (TextUtils.isEmpty(btnCategory.getText())) {
+            Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
+        } else {
+            money = Long.parseLong(String.valueOf(edtMoney.getText()));
+            String selectDate = btnSelectDate.getText().toString();
+            date = Util.convertStringToDate(selectDate);
+        }
+
+        spendingAccountDt.setMoney(money);
+        if (category != null) {
+            spendingAccountDt.setCategory(category);
+        } else {
+            spendingAccountDt.setCategory(spendingAccount.getCategory());
+        }
+        spendingAccountDt.setDate(date);
+        Log.d("test", spendingAccountDt.toString());
+        return spendingAccountDt;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    private void setSpendingAccount(SpendingAccount spendingAccount) {
+        edtMoney.setText(spendingAccount.getMoney() + "");
+        lblContent.setText(spendingAccount.getCategory().getContent());
+        imageCategory.setImageResource((int) spendingAccount.getCategory().getIcon());
+        btnSelectDate.setText(spendingAccount.getDate().getDayOfMonth() + "-" + spendingAccount.getDate().getMonthValue() + "-" + spendingAccount.getDate().getYear());
 
     }
 }

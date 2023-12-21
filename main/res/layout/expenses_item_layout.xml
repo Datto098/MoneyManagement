@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="10dp"
@@ -78,12 +79,11 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/imageIcon"
             android:layout_width="54dp"
             android:layout_height="46dp"
             android:layout_marginRight="10dp"
-            android:contentDescription="@string/icon"
-            android:src="@drawable/healthy_eating" />
+            android:contentDescription="@string/icon"/>
 
         <TextView
             android:id="@+id/lbl_content"
@@ -93,7 +93,7 @@
             android:text="@string/breakfast" />
 
         <TextView
-            android:id="@+id/lb_money"
+            android:id="@+id/lbl_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"

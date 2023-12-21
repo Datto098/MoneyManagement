@@ -22,8 +22,8 @@ import vn.edu.tdc.moneymanagement.fragment.AccountFragment;
 import vn.edu.tdc.moneymanagement.fragment.AddFixedAccount;
 import vn.edu.tdc.moneymanagement.fragment.AddSpendingFragment;
 import vn.edu.tdc.moneymanagement.fragment.EnterMoneyFragment;
+import vn.edu.tdc.moneymanagement.fragment.ExpensesFragment;
 import vn.edu.tdc.moneymanagement.fragment.FixedAccountFragment;
-import vn.edu.tdc.moneymanagement.fragment.SpendingFragment;
 import vn.edu.tdc.moneymanagement.fragment.TotalAmountFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                     } else if ("AddFixedAccount".equals(className)) {
                         Log.d("test", currentFragment.getClass().getSimpleName() + "");
                         currentTitle = AddFixedAccount.prevTitle;
-                    } else if ("SpendingFragment".equals(className)) {
+                    } else if ("ExpensesFragment".equals(className)) {
                         Log.d("test", currentFragment.getClass().getSimpleName() + "");
-                        currentTitle = SpendingFragment.prevTitle;
+                        currentTitle = ExpensesFragment.prevTitle;
                     } else if ("AddSpendingFragment".equals(className)) {
                         Log.d("test", currentFragment.getClass().getSimpleName() + "");
                         currentTitle = AddSpendingFragment.prevTitle;

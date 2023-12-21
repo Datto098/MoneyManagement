@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.MoneyAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
-import vn.edu.tdc.moneymanagement.model.FixedAccount;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
 import vn.edu.tdc.moneymanagement.model.Util;
 
@@ -51,6 +50,8 @@ public class TotalAmountFragment extends Fragment {
         TextView totalMoney = fragment.findViewById(R.id.totalMoney);
 
         totalMoney.setText(AccountFragment.formatNumber(myDatabase.getTotalMoneyForCurrentMonth()) + "");
+        btnCancel.setVisibility(View.GONE);
+        btnAdd.setVisibility(View.VISIBLE);
 
         totalMonies = myDatabase.getAllTotalMoney();
         adapter = new MoneyAdapter(getContext(), totalMonies);
@@ -77,15 +78,17 @@ public class TotalAmountFragment extends Fragment {
         btnFindItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
-                LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
-                btnAdd.setVisibility(View.GONE);
-                btnCancel.setVisibility(View.VISIBLE);
-                totalMonies.clear();
-                ArrayList<TotalMoney> newData = myDatabase.getTotalMoneyInDateRange(startDay, endDay);
-                totalMonies.addAll(newData);
 
-                adapter.notifyDataSetChanged();
+                if (Util.isValidDateFormat(btnStartDay.getText().toString()) && Util.isValidDateFormat(btnEndDay.getText().toString())) {
+                    LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
+                    LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
+                    btnAdd.setVisibility(View.GONE);
+                    btnCancel.setVisibility(View.VISIBLE);
+                    totalMonies.clear();
+                    ArrayList<TotalMoney> newData = myDatabase.getTotalMoneyInDateRange(startDay, endDay);
+                    totalMonies.addAll(newData);
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 

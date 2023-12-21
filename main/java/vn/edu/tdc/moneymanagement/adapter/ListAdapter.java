@@ -2,8 +2,6 @@ package vn.edu.tdc.moneymanagement.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +10,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.fragment.AddFixedAccount;
-import vn.edu.tdc.moneymanagement.fragment.EnterMoneyFragment;
 import vn.edu.tdc.moneymanagement.model.FixedAccount;
 
 
 public class ListAdapter extends RecyclerView.Adapter {
+
     private final ArrayList<FixedAccount> items;
     private final LayoutInflater inflater;
-    private Context context;
+    private final Context context;
 
     public ListAdapter(Context context, ArrayList<FixedAccount> items) {
         this.inflater = LayoutInflater.from(context);
@@ -73,8 +69,8 @@ public class ListAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
 
                 AddFixedAccount fragment = new AddFixedAccount(fixed);
-                FragmentTransaction transaction=((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_view_tag,fragment);
+                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container_view_tag, fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
 

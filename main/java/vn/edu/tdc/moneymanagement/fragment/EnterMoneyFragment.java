@@ -24,7 +24,6 @@ import java.util.Calendar;
 
 import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
-import vn.edu.tdc.moneymanagement.model.FixedAccount;
 import vn.edu.tdc.moneymanagement.model.TotalMoney;
 
 public class EnterMoneyFragment extends Fragment {
@@ -39,6 +38,7 @@ public class EnterMoneyFragment extends Fragment {
     private LocalDate date;
     private MyDatabase myDatabase;
     private TotalMoney totalMoney;
+
 
     public EnterMoneyFragment(TotalMoney totalMoney) {
         this.totalMoney = totalMoney;
@@ -83,9 +83,20 @@ public class EnterMoneyFragment extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                                String selectedDate = selectedDay + "-" + (selectedMonth + 1) + "-" + selectedYear;
+                                // Tăng giá trị của selectedMonth vì tháng trong DatePicker được đánh số từ 0 đến 11
+                                selectedMonth = selectedMonth + 1;
+
+                                // Kiểm tra và thêm số 0 khi cần thiết
+                                String dayString = (selectedDay < 10) ? "0" + selectedDay : String.valueOf(selectedDay);
+                                String monthString = (selectedMonth < 10) ? "0" + selectedMonth : String.valueOf(selectedMonth);
+
+                                // Tạo chuỗi ngày tháng năm
+                                String selectedDate = dayString + "-" + monthString + "-" + selectedYear;
+
+                                // Hiển thị ngày đã chọn trên nút hoặc nơi bạn muốn
                                 btnSelectDate.setText(selectedDate);
                             }
+
                         },
                         year, month, day
                 );
@@ -109,7 +120,7 @@ public class EnterMoneyFragment extends Fragment {
                     int check = myDatabase.updateTotalMoney(newTotalMoney);
 
                     if (check > 0) {
-                        FragmentManager fragmentManager =((AppCompatActivity) getContext()).getSupportFragmentManager();
+                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
                         if (fragmentManager.getBackStackEntryCount() > 0) {
                             fragmentManager.popBackStack();
                         }
@@ -130,6 +141,8 @@ public class EnterMoneyFragment extends Fragment {
             });
 
             btnAdd.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.VISIBLE);
+            btnUpdate.setVisibility(View.VISIBLE);
         } else {
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,6 +160,7 @@ public class EnterMoneyFragment extends Fragment {
             btnUpdate.setVisibility(View.GONE);
             btnDelete.setVisibility(View.GONE);
         }
+
 
         return fragment;
     }
