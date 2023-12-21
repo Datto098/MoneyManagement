@@ -84,7 +84,6 @@ public class FixedAccountFragment extends Fragment {
                     LocalDate startDay = Util.convertStringToDate(btnStartDay.getText().toString());
                     LocalDate endDay = Util.convertStringToDate(btnEndDay.getText().toString());
 
-
                     btnAdd.setVisibility(View.GONE);
                     btnCancel.setVisibility(View.VISIBLE);
                     fixedAccounts.clear();

@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragment = inflater.inflate(R.layout.hom_fragment, container, false);
+        View fragment = inflater.inflate(R.layout.home_fragment, container, false);
         myDatabase = new MyDatabase(getContext());
 
 

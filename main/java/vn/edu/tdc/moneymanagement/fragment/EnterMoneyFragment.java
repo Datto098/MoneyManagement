@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,19 @@ public class EnterMoneyFragment extends Fragment {
             date = LocalDate.now();
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            btnSelectDate.setText(date.getDayOfMonth() + "-" + date.getMonthValue() + "-" + date.getYear());
+            int dayOfMonth = date.getDayOfMonth();
+            int monthValue = date.getMonthValue();
+            int year = date.getYear();
+
+            // Kiểm tra và thêm số 0 nếu cần
+            String dayString = (dayOfMonth < 10) ? "0" + dayOfMonth : String.valueOf(dayOfMonth);
+            String monthString = (monthValue < 10) ? "0" + monthValue : String.valueOf(monthValue);
+
+            // Sử dụng String.format để định dạng chuỗi
+            String formattedDate = String.format("%s-%s-%d", dayString, monthString, year);
+
+            // Đặt giá trị vào TextView
+            btnSelectDate.setText(formattedDate);
         }
 
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
@@ -113,16 +126,25 @@ public class EnterMoneyFragment extends Fragment {
             btnUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (TextUtils.isEmpty(edtMoney.getText())) {
+                        edtContent.requestFocus();
+                        Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
+                    } else if (TextUtils.isEmpty(edtContent.getText())) {
+                        edtContent.requestFocus();
+                        Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
+                    } else {
+                        TotalMoney newTotalMoney = getTotalMoney();
+                        newTotalMoney.setId(totalMoney.getId());
 
-                    TotalMoney newTotalMoney = getTotalMoney();
-                    newTotalMoney.setId(totalMoney.getId());
+                        Log.d("TotalMoney", newTotalMoney.toString());
 
-                    int check = myDatabase.updateTotalMoney(newTotalMoney);
+                        int check = myDatabase.updateTotalMoney(newTotalMoney);
 
-                    if (check > 0) {
-                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-                        if (fragmentManager.getBackStackEntryCount() > 0) {
-                            fragmentManager.popBackStack();
+                        if (check > 0) {
+                            FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                            if (fragmentManager.getBackStackEntryCount() > 0) {
+                                fragmentManager.popBackStack();
+                            }
                         }
                     }
                 }
@@ -148,6 +170,7 @@ public class EnterMoneyFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     TotalMoney totalMoney = getTotalMoney();
+                    Log.d("TotalMoney", totalMoney.toString());
                     if (totalMoney.getDate() != null) {
                         myDatabase.addTotalMoney(totalMoney);
                         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
@@ -166,39 +189,31 @@ public class EnterMoneyFragment extends Fragment {
     }
 
     private TotalMoney getTotalMoney() {
+        Log.d("TotalMoneyEvent", "Click");
         TotalMoney totalMoney = new TotalMoney();
-        if (TextUtils.isEmpty(edtMoney.getText())) {
-            edtContent.requestFocus();
-            Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(edtContent.getText())) {
-            edtContent.requestFocus();
-            Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
-        } else {
-            money = Long.parseLong(String.valueOf(edtMoney.getText()));
-            content = edtContent.getText().toString();
-            String selectDate = btnSelectDate.getText().toString();
+        money = Long.parseLong(String.valueOf(edtMoney.getText()));
+        content = edtContent.getText().toString();
+        String selectDate = btnSelectDate.getText().toString();
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                try {
-                    // Parse the string to LocalDate
-                    date = LocalDate.parse(selectDate, formatter);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            try {
+                // Parse the string to LocalDate
+                date = LocalDate.parse(selectDate, formatter);
 
-                    // Now you can work with the LocalDate
+                // Now you can work with the LocalDate
 
 
-                } catch (Exception e) {
-                    // Handle the exception if the string is not in the expected format
-                    System.out.println("Error parsing the date: " + e.getMessage());
-                }
-
+            } catch (Exception e) {
+                // Handle the exception if the string is not in the expected format
+                System.out.println("Error parsing the date: " + e.getMessage());
             }
 
-            totalMoney.setContent(content);
-            totalMoney.setDate(date);
-            totalMoney.setMoney(money);
-
         }
+
+        totalMoney.setContent(content);
+        totalMoney.setDate(date);
+        totalMoney.setMoney(money);
         return totalMoney;
     }
 
@@ -206,7 +221,20 @@ public class EnterMoneyFragment extends Fragment {
         EnterMoneyFragment.edtMoney.setText(totalMoney.getMoney() + "");
         EnterMoneyFragment.edtContent.setText(totalMoney.getContent());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            EnterMoneyFragment.btnSelectDate.setText(totalMoney.getDate().getDayOfMonth() + "-" + totalMoney.getDate().getMonthValue() + "-" + totalMoney.getDate().getYear());
+            LocalDate totalMoneyDate = totalMoney.getDate();
+            int dayOfMonth = totalMoneyDate.getDayOfMonth();
+            int monthValue = totalMoneyDate.getMonthValue();
+            int year = totalMoneyDate.getYear();
+
+            // Kiểm tra và thêm số 0 nếu cần
+            String dayString = (dayOfMonth < 10) ? "0" + dayOfMonth : String.valueOf(dayOfMonth);
+            String monthString = (monthValue < 10) ? "0" + monthValue : String.valueOf(monthValue);
+
+            // Sử dụng String.format để định dạng chuỗi
+            String formattedDate = String.format("%s-%s-%d", dayString, monthString, year);
+
+            // Đặt giá trị vào TextView
+            EnterMoneyFragment.btnSelectDate.setText(formattedDate);
         }
     }
 

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,6 @@ import vn.edu.tdc.moneymanagement.R;
 import vn.edu.tdc.moneymanagement.adapter.ListAdapter;
 import vn.edu.tdc.moneymanagement.database.MyDatabase;
 import vn.edu.tdc.moneymanagement.model.FixedAccount;
-import vn.edu.tdc.moneymanagement.model.Util;
 
 public class AddFixedAccount extends Fragment {
 
@@ -125,14 +125,23 @@ public class AddFixedAccount extends Fragment {
             btnUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FixedAccount newFixedAccount = getFixedAccount();
-                    newFixedAccount.setId(fixedAccount.getId());
-                    int check = myDatabase.updateFixedAccount(newFixedAccount);
 
-                    if (check > 0) {
-                        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-                        if (fragmentManager.getBackStackEntryCount() > 0) {
-                            fragmentManager.popBackStack();
+                    if (TextUtils.isEmpty(edtMoney.getText())) {
+                        edtMoney.requestFocus();
+                        Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
+                    } else if (TextUtils.isEmpty(edtContent.getText())) {
+                        edtContent.requestFocus();
+                        Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
+                    } else {
+                        FixedAccount newFixedAccount = getFixedAccount();
+                        newFixedAccount.setId(fixedAccount.getId());
+                        int check = myDatabase.updateFixedAccount(newFixedAccount);
+
+                        if (check > 0) {
+                            FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                            if (fragmentManager.getBackStackEntryCount() > 0) {
+                                fragmentManager.popBackStack();
+                            }
                         }
                     }
                 }
@@ -181,38 +190,27 @@ public class AddFixedAccount extends Fragment {
     }
 
     private FixedAccount getFixedAccount() {
+        Log.d("Event", "Clicked");
         FixedAccount fixedAccount = new FixedAccount();
-        if (TextUtils.isEmpty(edtMoney.getText())) {
-            edtMoney.requestFocus();
-            Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(edtContent.getText())) {
-            edtContent.requestFocus();
-            Toast.makeText(getContext(), "Vui lòng nội dung", Toast.LENGTH_LONG).show();
-        } else if (!Util.isValidDateFormat(btnSelectDate.getText().toString())) {
-            Toast.makeText(getContext(), "Vui lòng chọn ngày update", Toast.LENGTH_LONG).show();
-        } else {
-
-            btnUpdate.setEnabled(true);
-            money = Long.parseLong(String.valueOf(edtMoney.getText()));
-            content = edtContent.getText().toString();
-            String selectDate = btnSelectDate.getText().toString();
+        money = Long.parseLong(String.valueOf(edtMoney.getText()));
+        content = edtContent.getText().toString();
+        String selectDate = btnSelectDate.getText().toString();
 
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                try {
-                    // Parse the string to LocalDate
-                    date = LocalDate.parse(selectDate, formatter);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            try {
+                // Parse the string to LocalDate
+                date = LocalDate.parse(selectDate, formatter);
 
-                    // Now you can work with the LocalDate
-                    fixedAccount.setContent(content);
-                    fixedAccount.setDate(date);
-                    fixedAccount.setMoney(money);
+                // Now you can work with the LocalDate
+                fixedAccount.setContent(content);
+                fixedAccount.setDate(date);
+                fixedAccount.setMoney(money);
 
-                } catch (Exception e) {
-                    // Handle the exception if the string is not in the expected format
-                    System.out.println("Error parsing the date: " + e.getMessage());
-                }
+            } catch (Exception e) {
+                // Handle the exception if the string is not in the expected format
+                System.out.println("Error parsing the date: " + e.getMessage());
             }
         }
         return fixedAccount;
@@ -223,7 +221,20 @@ public class AddFixedAccount extends Fragment {
         AddFixedAccount.edtMoney.setText(fixed.getMoney() + "");
         AddFixedAccount.edtContent.setText(fixed.getContent());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AddFixedAccount.btnSelectDate.setText(fixed.getDate().getDayOfMonth() + "-" + fixed.getDate().getMonthValue() + "-" + fixed.getDate().getYear());
+            // Nếu không null, lấy giá trị ngày, tháng, năm
+            int dayOfMonth = fixed.getDate().getDayOfMonth();
+            int monthValue = fixed.getDate().getMonthValue();
+            int year = fixed.getDate().getYear();
+
+            // Kiểm tra và thêm số 0 nếu cần
+            String dayString = (dayOfMonth < 10) ? "0" + dayOfMonth : String.valueOf(dayOfMonth);
+            String monthString = (monthValue < 10) ? "0" + monthValue : String.valueOf(monthValue);
+
+            // Sử dụng String.format để định dạng chuỗi
+            String formattedDate = String.format("%s-%s-%d", dayString, monthString, year);
+
+            // Đặt giá trị vào TextView
+            AddFixedAccount.btnSelectDate.setText(formattedDate);
         }
     }
 

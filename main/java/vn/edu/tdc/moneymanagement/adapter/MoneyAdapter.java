@@ -97,7 +97,19 @@ public class MoneyAdapter extends RecyclerView.Adapter {
             date = LocalDate.now();
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            EnterMoneyFragment.btnSelectDate.setText(date.getDayOfMonth() + "-" + date.getMonthValue() + "-" + date.getYear());
+            int dayOfMonth = date.getDayOfMonth();
+            int monthValue = date.getMonthValue();
+            int year = date.getYear();
+
+            // Kiểm tra và thêm số 0 nếu cần
+            String dayString = (dayOfMonth < 10) ? "0" + dayOfMonth : String.valueOf(dayOfMonth);
+            String monthString = (monthValue < 10) ? "0" + monthValue : String.valueOf(monthValue);
+
+            // Sử dụng String.format để định dạng chuỗi
+            String formattedDate = String.format("%s-%s-%d", dayString, monthString, year);
+
+            // Đặt giá trị vào TextView
+            EnterMoneyFragment.btnSelectDate.setText(formattedDate);
         }
     }
 
@@ -105,7 +117,23 @@ public class MoneyAdapter extends RecyclerView.Adapter {
         EnterMoneyFragment.edtMoney.setText(totalMoney.getMoney() + "");
         EnterMoneyFragment.edtContent.setText(totalMoney.getContent());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            EnterMoneyFragment.btnSelectDate.setText(totalMoney.getDate().getDayOfMonth() + "-" + totalMoney.getDate().getMonthValue() + "-" + totalMoney.getDate().getYear());
+
+
+            LocalDate totalMoneyDate = totalMoney.getDate();
+            int dayOfMonth = totalMoneyDate.getDayOfMonth();
+            int monthValue = totalMoneyDate.getMonthValue();
+            int year = totalMoneyDate.getYear();
+
+            // Kiểm tra và thêm số 0 nếu cần
+            String dayString = (dayOfMonth < 10) ? "0" + dayOfMonth : String.valueOf(dayOfMonth);
+            String monthString = (monthValue < 10) ? "0" + monthValue : String.valueOf(monthValue);
+
+            // Sử dụng String.format để định dạng chuỗi
+            String formattedDate = String.format("%s-%s-%d", dayString, monthString, year);
+
+            // Đặt giá trị vào TextView
+            EnterMoneyFragment.btnSelectDate.setText(formattedDate);
+
         }
     }
 
